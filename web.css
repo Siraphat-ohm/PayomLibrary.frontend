@@ -1,0 +1,176 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Kanit', sans-serif;
+    background-color: rgb(251, 250, 250);
+}
+.header {
+   position: fixed;
+   top: 0;
+   right: 0;
+   left: 0;
+   z-index: 10;
+}
+
+
+/*หัวเว็ปที่มีโลโก้โรงเรียน*/
+.header_1 {
+    background-color: rgb(255, 255, 255);
+}
+.school_image{
+    width: 400px;
+    margin: -10px;
+}
+.position {
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    padding: 25px;
+}
+.school_logo {
+    position: absolute;
+    left: 10px;
+}
+.username {
+    color: rgb(255, 255, 255);
+    margin: 10px;
+    display: inline-block;
+    font-size: 15px;
+    
+}
+.box_username{
+    background-color: rgb(255, 58, 176);
+    position: absolute;
+    right: 75px;
+    top: 0px;
+    margin: 25px;
+    border-radius: 50px;
+    display: inline-block;
+}
+.big_box_back_button{
+    display: inline-block;
+    position: absolute;
+    right: 50px;
+    top: 25px;
+    margin-top: 5px;
+}
+.small_box_back_button{
+    display: inline-block;
+    background-color: white;
+    border: none;
+}
+.back_button{
+    width: 30px;
+    transition: transform 0s 0s ease-in;
+}
+.back_button:hover {
+    transform: scale(1.2 , 1.2);
+}
+
+
+/*หัวเว็ปที่เป็นคอลัมป์ไว้เลือกหน้าเว็ป*/
+.header_2 {
+    background-color: rgb(243, 243, 243);
+    color: rgb(0, 0, 0);
+    padding-left: 15px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+.small_header_2 {
+    padding: 20px;
+    display: inline-block;
+    text-decoration: none;
+}
+.page_name {
+    text-decoration: none;
+    color: rgb(39, 39, 39);
+}
+.action_page {
+    transition: background-color 0s 0s ease-in;
+}
+.action_page:hover {
+    background-color: rgb(218, 218, 218);
+}
+
+
+/*เนื้อหาเว็ปหน้าแรก*/
+.first_column {
+    background-color: white;
+    margin-top: 180px;
+    margin-left: 100px;
+    margin-right: 100px;
+    border-radius: 10px;
+}
+
+.flex {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.item {
+    display: block;
+    box-sizing: border-box;
+    position: relative;
+    /*border: 1px solid green;*/
+}
+.item_1 {
+    width: 25%;
+}
+.item_2 {
+    width: 50%;
+}
+.item_3 {
+    width: 25%;
+}
+.box_input{
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /*border: 5px solid rgb(255, 0, 0);*/
+
+}
+.book_name {
+    width: 517px;
+    font-size: 15px;
+    font-family: 'Kanit', sans-serif;
+    border: none;
+    padding: 10px;
+    background-color: rgb(245, 245, 245);
+}
+.book_name:focus {
+    border: 1px solid green;
+}
+.box_search {
+    display: inline-block;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+    /*border: 5px solid rgb(0, 145, 255);*/
+    width: 110px;
+    position: absolute;
+    left: 0px;
+    bottom: -21px;
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
+    background-color: rgb(162, 229, 252);
+}
+.search {
+    width: 20px;
+    
+}
+.type {
+    font-family: 'Kanit', sans-serif;
+    margin-top: 10px;
+    padding: 10.5px;
+    position: absolute;
+    right: 0px;
+    bottom: -21px;
+    border: none;
+    background-color: rgb(255, 40, 115);
+    width: 125px;
+    border-bottom-left-radius: 25px;
+    border-top-left-radius: 25px;
+    color: white;
+}
