@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react';
 import yrs_logo from "../assets/yrs_logo.png"
 import "../css/login.css"
 import instanceAxios from "../../config/baseAxios"
+import { useNavigate } from "react-router-dom"
 
 function Login() {
 
+  const navigate = useNavigate();
 
   function onSubmit(event:any){
     event?.preventDefault();
@@ -12,7 +13,12 @@ function Login() {
     let username:string = event.target.user.value;
     let pwd:string = event.target.pwd.value;
 
-    instanceAxios.post("/login", {user:username, pwd:pwd}).then( res => console.log(res));
+    instanceAxios.post("/login", {user:username, pwd:pwd})
+                      .then( (res) => {
+                                console.log(res);
+                                navigate("/home")
+                              })
+                      .catch( (err) => console.log(err.message));
   }
 
   return (
