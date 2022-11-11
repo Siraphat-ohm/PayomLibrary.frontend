@@ -1,0 +1,54 @@
+.login {
+    text-align: center;
+    background-color: white;
+    padding-top: 25px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 25px; 
+    max-width: 300px;
+    margin: auto;
+    margin-top: 80px;
+    box-shadow: 0px 0px 7px 9px rgba(89, 89, 89, 0.29);
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+.school-logo {
+    width: 180px;
+}
+
+
+.text-search {
+    width: 150px;
+    display: inline-block;
+}
+
+.text-search-2 {
+    width: 150px;
+    display: inline-block;
+}
+
+.color {
+    color: rgb(81, 81, 81);
+    padding-left: auto;
+}
+
+.button-login {
+    text-align: center;
+    padding: 10px;
+    color: white;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: none;
+    transition-property: transform;
+    transition-duration: 0s;
+    transition-delay: 0s;
+}
+
+.button-login:hover {
+    transform: scale(1.1,1.1);
+}
