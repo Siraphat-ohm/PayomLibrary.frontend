@@ -1,8 +1,21 @@
 import "../css/homepage.css"
 import school10 from "../assets/school_logo_10.png"
 import backbutton from "../assets/back_button.png"
+import { useEffect } from "react"
+import Cookies from "js-cookie"
+import instanceAxios from "../../config/baseAxios"
 
 function HomePage(){
+
+    useEffect(() => {
+        console.log(Cookies.get('auth'));
+    }, [])
+
+    function logout(){
+        console.log("test");
+        instanceAxios.get("/logout").then(res => console.log(res));
+    }
+
     return (
         <div>
             <header className="header">
@@ -23,7 +36,8 @@ function HomePage(){
                                 </div>
                                 <div className="big_box_back_button">
                                     <button className="small_box_back_button">
-                                        <img 
+                                        <img
+                                            onClick={logout} 
                                             src={backbutton}
                                             className="back_button"
                                         />
