@@ -6,11 +6,13 @@ import instanceAxios from "../../config/baseAxios"
 function Login() {
 
 
-  function onSubmit(event:React.FormEvent<HTMLFormElement>){
+  function onSubmit(event:any){
     event?.preventDefault();
 
-    console.log(event.target.user.value);
-    console.log(event.target.pwd.value);
+    let username:string = event.target.user.value;
+    let pwd:string = event.target.pwd.value;
+
+    instanceAxios.post("/login", {user:username, pwd:pwd}).then( res => console.log(res));
   }
 
   return (
