@@ -6,7 +6,6 @@
    z-index: 10;
 }
 
-
 .header_1 {
     background-color: rgb(255, 255, 255);
 }
@@ -79,3 +78,15 @@
 .action_page:hover {
     background-color: rgb(218, 218, 218);
 }
+
+.app-header-item {
+    color: rgb(34, 34, 34);
+    font-weight: 600;
+    display: inline-block;
+    padding: 10px;
+    text-decoration: none;
+  }
+  
+.app-header-item-active {
+    background-color: pink;
+  }

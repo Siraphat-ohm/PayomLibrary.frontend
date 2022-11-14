@@ -2,8 +2,15 @@ import React from "react"
 import school10 from "../assets/school_logo_10.png"
 import backbutton from "../assets/back_button.png"
 import "../css/homepage.css"
+import { NavLink } from "react-router-dom"
 
 function AppBar(){
+
+    function getNavClass(navLinkProps:any){
+        let navClass : string = "app-header-item";
+        if (navLinkProps.isActive) navClass += ' app-header-item-active';
+        return navClass;
+    }
 
     return (
         <div>
@@ -37,19 +44,9 @@ function AppBar(){
                 </div>
                 <div>
                     <div className="header_2">
-                        <div className="small_header_2 action_page">
-                            <a className="page_name " >หน้าแรก</a>
-                        </div>
-                        <div className="small_header_2 action_page">
-                            <a className="page_name ">รายการยืมหนังสือ</a>
-                        </div>
-                        <div className="small_header_2 action_page">
-                            <a className="page_name">
-                                ประวัติการยืม-คืนหนังสือ
-                            </a> 
-                        </div>
-                        <div className="small_header_2">
-                        </div>
+                            <NavLink className={getNavClass} to="/home">หน้าแรก</NavLink>
+                            <NavLink className={getNavClass} to="/list">รายการหนังสือ</NavLink>
+                            <NavLink className={getNavClass} to="/history">ประวัติการยืม-คืนหนังสือ</NavLink>
                     </div>    
                 </div>
             </header>

@@ -2,9 +2,11 @@ import Cookies from 'js-cookie'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import HistoryPage from './page/historyPage'
 
 //Pages
 import HomePage from './page/homePage'
+import ListPage from './page/listPage'
 import Login from './page/login'
 
 
@@ -14,6 +16,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <Routes>
         <Route path='/login' element={ Cookies.get("auth") ? <Navigate to="/home"/> : <Login/>}/>
         <Route path='/home' element={<HomePage/>}/>
+        <Route path='/list' element={<ListPage/>}/>
+        <Route path='/history' element={<HistoryPage/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
