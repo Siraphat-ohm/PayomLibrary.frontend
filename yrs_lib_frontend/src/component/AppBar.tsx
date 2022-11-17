@@ -3,13 +3,23 @@ import school10 from "../assets/school_logo_10.png"
 import backbutton from "../assets/back_button.png"
 import "../css/homepage.css"
 import { NavLink } from "react-router-dom"
+import instanceAxios from "../../config/baseAxios"
+import { useNavigate } from "react-router-dom"
 
 function AppBar(){
+
+    const navigate = useNavigate();
 
     function getNavClass(navLinkProps:any){
         let navClass : string = "app-header-item";
         if (navLinkProps.isActive) navClass += ' app-header-item-active';
         return navClass;
+    }
+
+    function logout(){
+        instanceAxios.get("/logout").then(res => {
+            navigate('/login')                     
+        })
     }
 
     return (
@@ -35,6 +45,7 @@ function AppBar(){
                                         <img
                                             src={backbutton}
                                             className="back_button"
+                                            onClick={logout}
                                         />
                                     </button>
                                 </div>
