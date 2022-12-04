@@ -1,23 +1,18 @@
 import React, { createContext, useState } from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import HistoryPage from './page/historyPage'
-
-//Pages
-import HomePage from './page/homePage'
-import ListPage from './page/listPage'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import App from './app'
 import Login from './page/login'
 
+//Pages
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
-        <Routes>
-          <Route path='/login' element={<Login/>}/>
-          <Route path='/home' element={<HomePage/>}/>
-          <Route path='/list' element={<ListPage/>}/>
-          <Route path='/history' element={<HistoryPage/>}/>
-        </Routes>
+      <Routes>
+        <Route path='/login' element={<Login/>} />
+        <Route path='*' element={<App/>} />
+      </Routes>
     </BrowserRouter>
   </React.StrictMode>
 )

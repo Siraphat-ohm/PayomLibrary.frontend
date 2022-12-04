@@ -2,18 +2,8 @@ import yrs_logo from "../assets/yrs_logo.png"
 import "../css/login.css"
 import instanceAxios from "../../config/baseAxios"
 import { useNavigate } from "react-router-dom"
-import { useEffect } from "react"
 
 function Login() {
-
-  useEffect(() => {
-    instanceAxios.get('/auth').then(res => {
-      if(res.status != 204){
-        navigate("/home");
-      }
-    })
-  }, [])
-
   const navigate = useNavigate();
 
   function onSubmit(event:any){
