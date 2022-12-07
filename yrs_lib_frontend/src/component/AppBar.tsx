@@ -58,6 +58,7 @@ function AppBar(){
                             <NavLink className={getNavClass} to="/home">หน้าแรก</NavLink>
                             <NavLink className={getNavClass} to="/list">รายการหนังสือ</NavLink>
                             <NavLink className={getNavClass} to="/history">ประวัติการยืม-คืนหนังสือ</NavLink>
+                            <NavLink className={getNavClass} to="/newbook">เพิ่มหนังสือ</NavLink>
                     </div>    
                 </div>
             </header>

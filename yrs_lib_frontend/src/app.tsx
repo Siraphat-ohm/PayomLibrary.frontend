@@ -6,6 +6,7 @@ import instanceAxios from '../config/baseAxios'
 import HistoryPage from './page/historyPage'
 import HomePage from './page/homePage'
 import ListPage from './page/listPage'
+import UploadPage from './page/upload'
 
 
 function App(){
@@ -24,6 +25,7 @@ function App(){
                 <Route path='/home' element={<HomePage/>}/>
                 <Route path='/history' element={<HistoryPage/>}/>
                 <Route path='/list' element={<ListPage/>}/>
+                <Route path='/newbook' element={<UploadPage/>} />
                 <Route path='*' element={<div><h1>หาไม่เจอหรือเธอไม่มี</h1></div>} />
             </Routes>
         </div>
