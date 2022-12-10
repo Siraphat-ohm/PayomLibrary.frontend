@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import instanceAxios from '../config/baseAxios'
+import AppBar from './component/AppBar'
 
 //Pages
 import HistoryPage from './page/historyPage'
@@ -10,17 +11,21 @@ import UploadPage from './page/upload'
 
 
 function App(){
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [username, setUsername] = useState();
+
     useEffect(() => {
         instanceAxios.get("/auth").then( res => {
             if(res.status == 204){
                 navigate('/login')
             }
+            setUsername(res.data.username)
         });
     }, [])
 
     return (
         <div>
+            <AppBar name={username}/>
             <Routes>
                 <Route path='/home' element={<HomePage/>}/>
                 <Route path='/history' element={<HistoryPage/>}/>

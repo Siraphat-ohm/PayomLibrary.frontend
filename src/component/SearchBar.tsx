@@ -1,4 +1,3 @@
-import React from 'react'
 import searchLogo from "../assets/search_logo_2.png";
 import "../css/searchbar.css";
 

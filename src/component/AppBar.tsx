@@ -6,7 +6,8 @@ import { NavLink } from "react-router-dom"
 import instanceAxios from "../../config/baseAxios"
 import { useNavigate } from "react-router-dom"
 
-function AppBar(){
+
+function AppBar(props:any){
 
     const navigate = useNavigate();
 
@@ -37,7 +38,7 @@ function AppBar(){
                             <div className="big_box_username">
                                 <div className="box_username">
                                     <div className=" username">
-                                        ปุริศ ขาวจันทร์
+                                        {props.name}
                                     </div>                                
                                 </div>
                                 <div className="big_box_back_button">

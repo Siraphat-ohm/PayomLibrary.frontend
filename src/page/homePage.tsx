@@ -5,7 +5,6 @@ function HomePage(){
 
     return (
         <div>
-            <AppBar/>
             <SearchBar/>
         </div>
     )

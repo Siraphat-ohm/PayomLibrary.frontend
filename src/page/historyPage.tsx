@@ -5,7 +5,6 @@ function HistoryPage(){
 
     return (
         <div>
-            <AppBar/>
             <h1>This is historypage.</h1>
         </div>
     )

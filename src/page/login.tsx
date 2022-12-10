@@ -14,7 +14,6 @@ function Login() {
 
     instanceAxios.post("/login", {user:username, pwd:pwd})
                       .then( (res) => {
-                                console.log(res);
                                 navigate("/home")
                               })
                       .catch( (err) => console.log(err.message));
