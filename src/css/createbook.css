@@ -9,7 +9,7 @@ body, html {
     background-color: rgb(251, 250, 250);
 }
 
-input[name="upload"] {
+input[name="file"] {
     width: 260px;
 }
 
