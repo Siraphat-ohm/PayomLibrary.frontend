@@ -7,12 +7,10 @@ import Login from './page/login'
 //Pages
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path='/login' element={<Login/>} />
         <Route path='*' element={<App/>} />
       </Routes>
     </BrowserRouter>
-  </React.StrictMode>
 )
