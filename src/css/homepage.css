@@ -1,98 +1,54 @@
-.header {
-   position: fixed;
-   top: 0;
-   right: 0;
-   left: 0;
-   z-index: 10;
-}
-.header_1 {
-    background-color: rgb(255, 255, 255);
-}
-.school_image{
-    width: 400px;
-    margin: -10px;
-}
-.position {
-    position: relative;
-    background-color: rgb(255, 255, 255);
-    padding: 25px;
-}
-.school_logo {
-    position: absolute;
-    left: 10px;
-}
-.username {
-    color: rgb(255, 255, 255);
-    margin: 10px;
-    display: inline-block;
-    font-size: 15px;
-    
-}
-.box_username{
-    background-color: rgb(255, 58, 176);
-    position: absolute;
-    right: 75px;
-    top: 0px;
-    margin: 25px;
-    border-radius: 50px;
-    display: inline-block;
-}
-.big_box_back_button{
-    display: inline-block;
-    position: absolute;
-    right: 50px;
-    top: 25px;
-    margin-top: 5px;
-}
-.small_box_back_button{
-    display: inline-block;
-    background-color: white;
-    border: none;
-}
-.back_button{
-    width: 30px;
-}
-
-/*หัวเว็ปที่เป็นคอลัมป์ไว้เลือกหน้าเว็ป*/
-.header_2 {
-    background-color: rgb(243, 243, 243);
-    color: rgb(0, 0, 0);
-    padding-left: 15px;
-    margin-left: 100px;
-    margin-right: 100px;
-}
-.small_header_2 {
-    padding: 20px;
-    display: inline-block;
-    text-decoration: none;
-}
-.page_name {
-    text-decoration: none;
-    color: rgb(39, 39, 39);
-}
-.action_page {
-    transition: background-color 0s 0s ease-in;
-}
-.action_page:hover {
-    background-color: rgb(218, 218, 218);
-}
-
-.app-header-item {
-    color: rgb(34, 34, 34);
-    font-weight: 600;
-    display: inline-block;
-    padding: 10px;
-    text-decoration: none;
+.flexbox {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    box-sizing: border-box;
   }
   
-.app-header-item-active {
-    background-color: pink;
+  .item {
+    width: 250px;
+    height: 350px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.14);
   }
 
-.book {
-    margin-left: 100px;
-    margin-bottom: 10px;
-    border: 2px solid deepskyblue;
-    padding-left: 5px;
-    width: 500px;
+  .img-box {
+    position: relative;
+    height: 200px;
+    border-bottom: 4px darkblue dashed;
+    padding-bottom: 3px;
+    background-color: antiquewhite;
 }
+
+  .bookImg {
+    height: 195px;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, 0);
+    position: absolute;
+}
+
+  .content {
+    bottom: 80%;
+    font-weight: 600;
+    padding-left: 10px;
+    overflow-y: auto;
+}
+    .title-info {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    .btn-add {
+        margin-top: 30px;
+        margin-left: 130px;
+    }
+    
+    .btn-view {
+        margin-top : -67px;
+        margin-left: 65px;
+    }

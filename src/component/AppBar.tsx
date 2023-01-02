@@ -1,7 +1,7 @@
 import React from "react"
 import school10 from "../assets/school_logo_10.png"
 import backbutton from "../assets/back_button.png"
-import "../css/homepage.css"
+import "../css/menubar.css"
 import { NavLink } from "react-router-dom"
 import instanceAxios from "../../config/baseAxios"
 import { useNavigate } from "react-router-dom"

@@ -1,30 +1,28 @@
 import "../css/searchbar.css";
-import "../css/createbook.css";
 import { useEffect, useRef, useState } from "react";
 import instanceAxios from "../../config/baseAxios";
+import { FileUploader } from "react-drag-drop-files";
 
 function UploadPage() {
-  const [file, setFile] = useState();
-  const [images, setImages]: any = useState([]);
-  const [imagesURLs, setImageURLs]:any = useState([]);
 
-  useEffect(() => {
-    if (images.length < 1) return;
-    const newImageUrls:any = [];
-    images.forEach((image:any) => newImageUrls.push(URL.createObjectURL(image)));
-    setImageURLs(newImageUrls);
-  }, [images]);
+  const fileTypes:Array<string> = ['JPG', "PNG"];
+  const [file, setFile]:any = useState(null);
 
   function onSubmit(event: any) {
     event?.preventDefault();
   }
 
-  function onImageChange(e:any){
-    setImages([...e.target.files])
+  const handleChange = (file:any) => {
+    setFile(file)
   }
 
   return (
-    <div></div>
+    <div>
+      <div className="preview-box">
+
+      </div>
+      <FileUploader handleChange={handleChange} name='file' types={fileTypes}/>
+    </div>
   );
 }
 
