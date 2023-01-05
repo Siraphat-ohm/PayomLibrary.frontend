@@ -15,17 +15,17 @@
     border-top-right-radius: 25px;
 }
 
-.school-logo {
+.school_logo {
     width: 180px;
 }
 
 
-.text-search {
+.text_search {
     width: 150px;
     display: inline-block;
 }
 
-.text-search-2 {
+.text_search_2 {
     width: 150px;
     display: inline-block;
 }
@@ -35,7 +35,7 @@
     padding-left: auto;
 }
 
-.button-login {
+.button_login {
     text-align: center;
     padding: 10px;
     color: white;
@@ -49,6 +49,6 @@
     transition-delay: 0s;
 }
 
-.button-login:hover {
+.button_login:hover {
     transform: scale(1.1,1.1);
 }

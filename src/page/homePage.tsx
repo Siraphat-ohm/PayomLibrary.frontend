@@ -2,23 +2,23 @@ import SearchBar from "../component/SearchBar"
 import { useEffect, useState } from "react";
 import instanceAxios from "../../config/baseAxios";
 import feyman from "../assets/feyman.jpg" 
-import "../css/homepage.css"
 import Button from 'react-bootstrap/Button';
+import homepageStyles from "../css/homepage.module.css"
 
 function HomePage(){
     
     return (
         <div>
-            <div className="flexbox">
-                <div className="item">
-                    <div className="img-box">
-                        <img className="bookImg" src={feyman} />
+            <div className={homepageStyles.flexbox}>
+                <div className={homepageStyles.item}>
+                    <div className={homepageStyles.img_box}>
+                        <img className={homepageStyles.bookImg} src={feyman} />
                     </div>
-                    <div className="content">
-                        <p className="title-info">title : lecture of feyman</p>
-                        <p className="title-info">amount : 2</p>
-                        <Button variant="primary" className="btn-add">add to cart</Button>
-                        <Button variant="secondary" className="btn-view">view</Button>
+                    <div className={homepageStyles.content}>
+                        <p className={homepageStyles.title_info}>title : lecture of feyman</p>
+                        <p className={homepageStyles.title_info}>amount : 2</p>
+                        <Button variant="primary" className={homepageStyles.btn_add}>add to cart</Button>
+                        <Button variant="secondary" className={homepageStyles.btn_view}>view</Button>
                     </div>
                 </div>
             </div>

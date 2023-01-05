@@ -1,29 +1,18 @@
-import "../css/searchbar.css";
 import { useEffect, useRef, useState } from "react";
 import instanceAxios from "../../config/baseAxios";
-import { FileUploader } from "react-drag-drop-files";
+import uploadStyles from "../css/upload.module.css"
+
+import Form from 'react-bootstrap/Form';
 
 function UploadPage() {
 
-  const fileTypes:Array<string> = ['JPG', "PNG"];
-  const [file, setFile]:any = useState(null);
-
-  function onSubmit(event: any) {
-    event?.preventDefault();
-  }
-
-  const handleChange = (file:any) => {
-    setFile(file)
-  }
-
   return (
-    <div>
-      <div className="preview-box">
+    <div >
+      <form action="" className={uploadStyles.upload_area}>
 
-      </div>
-      <FileUploader handleChange={handleChange} name='file' types={fileTypes}/>
+      </form>
     </div>
-  );
+  )
 }
 
 export default UploadPage;

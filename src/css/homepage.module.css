@@ -3,6 +3,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     box-sizing: border-box;
+    margin-top: 150px;
+    margin-left: 75px;
   }
   
   .item {
@@ -11,9 +13,10 @@
     margin: 20px;
     border-radius: 10px;
     box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.14);
+    overflow: hidden;
   }
 
-  .img-box {
+  .img_box {
     position: relative;
     height: 200px;
     border-bottom: 4px darkblue dashed;
@@ -35,7 +38,7 @@
     padding-left: 10px;
     overflow-y: auto;
 }
-    .title-info {
+    .title_info {
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
@@ -43,12 +46,12 @@
         margin-bottom: 5px;
     }
 
-    .btn-add {
+    .btn_add {
         margin-top: 30px;
         margin-left: 130px;
     }
     
-    .btn-view {
+    .btn_view {
         margin-top : -67px;
         margin-left: 65px;
     }

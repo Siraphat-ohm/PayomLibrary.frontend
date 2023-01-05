@@ -1,5 +1,5 @@
 import yrs_logo from "../assets/yrs_logo.png"
-import "../css/login.css"
+import loginStyles from "../css/login.module.css"
 import instanceAxios from "../../config/baseAxios"
 import { useNavigate } from "react-router-dom"
 
@@ -20,18 +20,18 @@ function Login() {
   }
 
   return (
-      <div className="login">
-                        <img className="school-logo" src={yrs_logo} />
+      <div className={loginStyles.login}>
+                        <img className={loginStyles.school_logo} src={yrs_logo} />
                           <form onSubmit={onSubmit}>
-                              <p className="color">
+                              <p className={loginStyles.color}>
                                   E-maill :  
-                                  <input type="username" className="text-search" id="input-email" name="user" />
+                                  <input type="username" className={loginStyles.text_search} id="input-email" name="user" />
                               </p>
                               <p className="color">
                                   Password :
-                                  <input type="password" className="text-search-2" id="input-password" name="pwd" />
+                                  <input type="password" className={loginStyles.text_search_2} id="input-password" name="pwd" />
                               </p>
-                              <button className="button-login">LOGIN</button>
+                              <button className={loginStyles.button_login}>LOGIN</button>
                           </form>
     </div>
   )
