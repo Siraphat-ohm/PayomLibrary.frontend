@@ -8,50 +8,27 @@
   }
   
   .item {
-    width: 250px;
-    height: 350px;
     margin: 20px;
     border-radius: 10px;
-    box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.14);
     overflow: hidden;
   }
 
-  .img_box {
-    position: relative;
-    height: 200px;
-    border-bottom: 4px darkblue dashed;
-    padding-bottom: 3px;
-    background-color: antiquewhite;
+.title_info {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
-  .bookImg {
-    height: 195px;
-    left: 50%;
-    right: 50%;
-    transform: translate(-50%, 0);
-    position: absolute;
+.card_img_top {
+  height: 300px;
 }
 
-  .content {
-    bottom: 80%;
-    font-weight: 600;
-    padding-left: 10px;
-    overflow-y: auto;
+.btn_view {
+  margin-left: 80px;
 }
-    .title_info {
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-        margin-top: 10px;
-        margin-bottom: 5px;
-    }
 
-    .btn_add {
-        margin-top: 30px;
-        margin-left: 130px;
-    }
-    
-    .btn_view {
-        margin-top : -67px;
-        margin-left: 65px;
-    }
+.btn_add {
+  margin-left: 10px;
+}

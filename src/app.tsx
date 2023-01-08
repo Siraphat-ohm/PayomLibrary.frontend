@@ -24,7 +24,7 @@ function App(){
     }, [])
 
     return (
-        <div>
+        <div >
             <AppBar name={username}/>
             <Routes>
                 <Route path='/home' element={<HomePage/>}/>
