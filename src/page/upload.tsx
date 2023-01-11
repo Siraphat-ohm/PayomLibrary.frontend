@@ -20,21 +20,28 @@ function UploadPage() {
     let publication_year : string = event.target.publication_year.value;
     let page : string = event.target.page.value;
     let language : string = event.target.language.value;
+    let detail : string = event.target.detail.value;
+    let amount : string = event.target.amount.value;
+    let ISBN : string = event.target.ISBN.value;
 
     formData.append("title", title);
     formData.append("category", category);
     formData.append("author", author);
     formData.append("edition", edition);
-    formData.append("publicatoin_year", publication_year);
+    formData.append("publication_year", publication_year);
     formData.append("page", page);
     formData.append("language", language);
+    formData.append("detail", detail);
+    formData.append("amount", amount);
     formData.append("graphic", file);
+    formData.append("ISBN", ISBN);
 
-    instanceAxios.post('/upload', formData)
+    instanceAxios.post('/upload', formData).then(() => {window.location.reload()})
   }
 
+
   return (
-    <form className={styles.area} onSubmit={onSubmit} encType="multipart/form-data" method="POST">
+    <form className={styles.area} onSubmit={onSubmit} encType="multipart/form-data" method="POST" id="book-form">
       <div className={styles.flexbox}>
         <div className={styles.item}>
           <div className={styles.title}>
@@ -78,6 +85,17 @@ function UploadPage() {
             <Form.Label> language </Form.Label>
             <Form.Control type="text" name="language"/>
           </div>
+          <div className={styles.copies_own}>
+            <Form.Label> copies own </Form.Label>
+            <Form.Control type="text" name="amount"/>
+          </div>
+        </div>
+
+        <div className={styles.item}>
+          <div className={styles.detail}>
+            <Form.Label> detail </Form.Label>
+            <Form.Control as='textarea' rows={3} name='detail'/>
+          </div>
         </div>
 
         <div className={styles.item}>
@@ -88,6 +106,7 @@ function UploadPage() {
             <Button type='submit' >submit</Button>
           </div>
         </div>
+
       </div>
     </form>
   )

@@ -29,14 +29,15 @@
     padding-right: 20px;
 }
 .ISBN {
-    width: 60%;
+    width: 30%;
 }
 .page {
     width: 20%;
     padding-right: 20px;
+    margin-left: 250px;
 }
 .language {
-
+    width: 10%;
 }
 .file {
     padding-top: 20px;
@@ -47,4 +48,14 @@
 .btn { 
     margin-top: 20px;
     padding-left: 20px;
+}
+
+.detail {
+    margin-left: -30px;
+    width: 450px;
+}
+
+.copies_own {
+    padding-left: 20px;
+    width: 12%;
 }

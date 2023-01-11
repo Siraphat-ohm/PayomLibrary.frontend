@@ -13,7 +13,7 @@ function HomePage(){
     useEffect(() => {
 
         instanceAxios.get('/books/1').then( res => {
-            console.log(res.data[0]);
+            console.log(res.data);
             const element = res.data.map((item:any, index:any) => {
             return (
                         <Card style={{ width: '18rem' }} className={homepageStyles.item} key={index}>
