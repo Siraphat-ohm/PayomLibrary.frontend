@@ -9,7 +9,6 @@ import HomePage from './pages/homePage'
 import ListPage from './pages/listPage'
 import UploadPage from './pages/upload'
 
-
 function App(){
     const navigate = useNavigate();
     const [username, setUsername] = useState();
@@ -24,6 +23,7 @@ function App(){
     }, [])
 
     return (
+        <CartProvider>
         <div >
             <AppBar name={username}/>
             <Routes>
@@ -34,6 +34,7 @@ function App(){
                 <Route path='*' element={<div><h1>หาไม่เจอหรือเธอไม่มี</h1></div>} />
             </Routes>
         </div>
+        </CartProvider>
     )    
 }
 
