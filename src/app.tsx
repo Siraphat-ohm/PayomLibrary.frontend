@@ -4,10 +4,10 @@ import instanceAxios from '../config/baseAxios'
 import AppBar from './component/AppBar'
 
 //Pages
-import HistoryPage from './page/historyPage'
-import HomePage from './page/homePage'
-import ListPage from './page/listPage'
-import UploadPage from './page/upload'
+import HistoryPage from './pages/historyPage'
+import HomePage from './pages/homePage'
+import ListPage from './pages/listPage'
+import UploadPage from './pages/upload'
 
 
 function App(){

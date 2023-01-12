@@ -22,7 +22,6 @@ function AppBar(props:any){
     }
 
     return (
-        <div>
             <header className={menubarStyles.header}>
                 <div>
                     <div className={menubarStyles.header_1}>
@@ -61,7 +60,6 @@ function AppBar(props:any){
                     </div>    
                 </div>
             </header>
-        </div>
     )
 }
 

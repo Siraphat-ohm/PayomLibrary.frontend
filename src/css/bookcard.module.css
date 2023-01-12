@@ -1,0 +1,25 @@
+.title_info {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.card_img_top {
+  height: 300px;
+}
+
+.btn_view {
+  margin-left: 80px;
+}
+
+.btn_add {
+  margin-left: 10px;
+}
+
+.item {
+    margin: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
