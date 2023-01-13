@@ -2,12 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import instanceAxios from '../config/baseAxios'
 import AppBar from './component/AppBar'
+import { CartProvider } from './context/CartContext'
 
 //Pages
 import HistoryPage from './pages/historyPage'
 import HomePage from './pages/homePage'
 import ListPage from './pages/listPage'
 import UploadPage from './pages/upload'
+
 
 function App(){
     const navigate = useNavigate();
@@ -24,7 +26,6 @@ function App(){
 
     return (
         <CartProvider>
-        <div >
             <AppBar name={username}/>
             <Routes>
                 <Route path='/home' element={<HomePage/>}/>
@@ -33,7 +34,6 @@ function App(){
                 <Route path='/newbook' element={<UploadPage/>} />
                 <Route path='*' element={<div><h1>หาไม่เจอหรือเธอไม่มี</h1></div>} />
             </Routes>
-        </div>
         </CartProvider>
     )    
 }

@@ -5,8 +5,12 @@ import { NavLink } from "react-router-dom"
 import instanceAxios from "../../config/baseAxios"
 import { useNavigate } from "react-router-dom"
 import menubarStyles from "../css/menubar.module.css"
+import { useCart } from "../context/CartContext"
+import { Button } from "react-bootstrap"
 
 function AppBar(props:any){
+
+    const { openCart, cartQuantity } = useCart()
 
     const navigate = useNavigate();
     function getNavClass(navLinkProps:any){
@@ -57,6 +61,7 @@ function AppBar(props:any){
                             <NavLink className={getNavClass} to="/list">รายการหนังสือ</NavLink>
                             <NavLink className={getNavClass} to="/history">ประวัติการยืม-คืนหนังสือ</NavLink>
                             <NavLink className={getNavClass} to="/newbook">เพิ่มหนังสือ</NavLink>
+                            <Button onClick={openCart}>{cartQuantity}</Button>
                     </div>    
                 </div>
             </header>
