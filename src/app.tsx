@@ -1,13 +1,14 @@
-import { useAuth } from "./context/AuthContext";
+import React from 'react';
+import { RouterProvider } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import { router } from './router';
 
-function App(){
-    
-    const { auth,setAuth } = useAuth()
-
+const App = () => {
     return (
-        <>
-        </>
-    )    
+    <AuthProvider>
+        <RouterProvider router={router}/>
+    </AuthProvider>
+    )
 }
 
 export default App;
