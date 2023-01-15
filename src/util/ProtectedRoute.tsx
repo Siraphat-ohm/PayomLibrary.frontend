@@ -6,9 +6,10 @@ import { children } from "../types/children";
 
 const ProtectedRoute = ({ children } : any) => {
     const { auth } = useAuth();
+    const navigate = useNavigate();
 
     if (!auth) { 
-        return "";
+        navigate('/login', { replace: true});
     }
     
     return (children);
