@@ -10,6 +10,8 @@ function HomePage(){
     useEffect(() => {
         instanceAxios.get('books/1').then(
             res => {
+                console.log(res.data);
+                
                 res.data.forEach((element: any) => {
                     setData((e:any) => [...e, element]);
                 });

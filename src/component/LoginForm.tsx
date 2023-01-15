@@ -1,24 +1,20 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import instanceAxios from "../../config/baseAxios";
-import loginStyles from "../css/login.module.css"
-import yrs_logo from "../assets/yrs_logo.png"
 
-const navigate = useNavigate();
+function LoginForm() {
+    const navigate = useNavigate();
 
-function onSubmit(event:any){
-    event?.preventDefault();
+    function onSubmit(event:any){
+        event?.preventDefault();
 
-    let username:string = event.target.user.value;
-    let pwd:string = event.target.pwd.value;
+        let username:string = event.target.user.value;
+        let pwd:string = event.target.pwd.value;
 
-    instanceAxios.post("/login", {user:username, pwd:pwd})
-                    .then( (res) => {
-                                navigate("/home")
-                            })
-                    .catch( (err) => console.log(err.message));
-}
-export function LoginForm() {
+        instanceAxios.post("/login", {user:username, pwd:pwd})
+                        .then( (res) => {
+                                    navigate("/home")
+                                })
+                        .catch( (err) => console.log(err.message));
+    }
     return (
         <div className={loginStyles.login}>
                         <img className={loginStyles.school_logo} src={yrs_logo} />
@@ -35,3 +31,5 @@ export function LoginForm() {
                         </form>
     </div> )
 }
+
+export default LoginForm;

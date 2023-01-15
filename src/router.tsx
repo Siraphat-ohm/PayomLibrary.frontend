@@ -1,21 +1,36 @@
 import { createBrowserRouter } from "react-router-dom";
+import Navbar from "./component/Navbar";
+import HistoryPage from "./pages/historyPage";
 import HomePage from "./pages/homePage";
+import ListPage from "./pages/listPage";
 import Login from "./pages/login";
 import UploadPage from "./pages/upload";
 
-export const router = createBrowserRouter([
+const router = createBrowserRouter([
     {
-        path:"/",
-        element: <HomePage />,
+        path:"/login",
+        element: <Login />,
         
     },
     {
-        path:"/login",
-        element: <Login/>
-    }
-    ,
-    {
-        path: "/upload",
-        element: <UploadPage/>
+        path:"/",
+        element: <Navbar/>,
+        children : [
+            {
+                path:"home",
+                element: <HomePage/>
+            },
+            {
+                path:"list",
+                element: <ListPage/>
+            },
+            {
+                path:"history",
+                element: <HistoryPage/>
+            }
+        ]
+        
     }
 ])
+
+export default router;
