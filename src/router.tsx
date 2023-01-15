@@ -5,6 +5,7 @@ import HomePage from "./pages/homePage";
 import ListPage from "./pages/listPage";
 import Login from "./pages/login";
 import UploadPage from "./pages/upload";
+import ProtectedRoute from "./util/ProtectedRoute";
 
 const router = createBrowserRouter([
     {
@@ -14,7 +15,7 @@ const router = createBrowserRouter([
     },
     {
         path:"/",
-        element: <Navbar/>,
+        element: <ProtectedRoute><Navbar/></ProtectedRoute>,
         children : [
             {
                 path:"home",
