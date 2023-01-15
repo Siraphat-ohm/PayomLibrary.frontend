@@ -7,6 +7,8 @@ import yrs_logo from "../assets/yrs_logo.png"
 
 function Login() {
     const navigate = useNavigate();
+    const { setAuth } = useAuth();
+
     function onSubmit(event:any){
         event?.preventDefault();
 
@@ -15,6 +17,7 @@ function Login() {
 
         instanceAxios.post("/login", {user:username, pwd:pwd})
                         .then( (res) => {
+                                    setAuth(true)
                                     navigate("/home")
                                 })
                         .catch( (err) => console.log(err.message));
