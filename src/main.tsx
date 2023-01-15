@@ -4,14 +4,15 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import App from './app'
 import Login from './pages/login'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { AuthProvider } from './context/AuthContext'
+import { CartProvider } from './context/CartContext'
 
 //Pages
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <BrowserRouter>
-      <Routes>
-        <Route path='/login' element={<Login/>} />
-        <Route path='*' element={<App/>} />
-      </Routes>
-    </BrowserRouter>
+  <AuthProvider>
+    <CartProvider>
+      <App />
+    </CartProvider>
+  </AuthProvider>
 )
