@@ -3,6 +3,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import instanceAxios from '../config/baseAxios'
 import AppBar from './component/AppBar'
 import { CartProvider } from './context/CartContext'
+import io from "socket.io-client"
 
 //Pages
 import HistoryPage from './pages/historyPage'

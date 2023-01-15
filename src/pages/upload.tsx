@@ -35,8 +35,8 @@ function UploadPage() {
     formData.append("amount", amount);
     formData.append("graphic", file);
     formData.append("ISBN", ISBN);
-
-    instanceAxios.post('/upload', formData).then(() => {window.location.reload()})
+    console.log(formData);
+    instanceAxios.post('/upload', formData, { headers: { "Content-Type": "multipart/form-data" }}).then(res => window.location.reload())
   }
 
 

@@ -20,11 +20,9 @@ export function CartItem({ id, quantity }: CartItemProps) {
        <div className="me-auto">
         <div>
           {item.title}{" "}
-          {quantity > 1 && (
-            <span className="text-muted" style={{ fontSize: ".65rem" }}>
+          <span className="text-muted" style={{ fontSize: ".65rem" }}>
               x{quantity}
-            </span>
-          )}
+          </span>
         </div>
         </div>
       <Button
