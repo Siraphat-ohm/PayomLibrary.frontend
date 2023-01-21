@@ -7,19 +7,11 @@
 }
 
 .card_img_top {
-  height: 300px;
-}
-
-.btn_view {
-  margin-left: 80px;
-}
-
-.btn_add {
-  margin-left: 10px;
+  height: 250px;
 }
 
 .item {
-    margin: 20px;
+    margin: 5px;
     border-radius: 10px;
     overflow: hidden;
   }
