@@ -22,11 +22,11 @@ function CardBook(props:any){
     }
     
     return (
-        <Card style={{ width: '18rem' }} className={bookcardStyles.item}>
+        <Card style={{ width: '15rem', height:"25rem" }} className={bookcardStyles.item}>
             <Card.Img variant="top" src={`data:image/png;base64,${graphic}`} className={bookcardStyles.card_img_top}/>
             <Card.Body>
-                <Card.Title className={bookcardStyles.title_info}>title : {title}</Card.Title>
-                <Card.Text>amount : {copies_owned}</Card.Text>
+                <Card.Title className={bookcardStyles.title_info}>title: {title}</Card.Title>
+                <Card.Text>amount: {copies_owned}</Card.Text>
             <Button variant="secondary" className={bookcardStyles.btn_view} >view</Button>
             <Button variant="primary" className={bookcardStyles.btn_add} onClick={() => addToCart(book)}>add to cart</Button>
             </Card.Body>
