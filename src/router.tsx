@@ -1,11 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
-import Navbar from "./component/Navbar";
+import NnavBar from "./component/NavBar";
 import HistoryPage from "./pages/historyPage";
 import HomePage from "./pages/homePage";
 import ListPage from "./pages/listPage";
 import Login from "./pages/login";
-import UploadPage from "./pages/upload";
-import ProtectedRoute from "./util/ProtectedRoute";
 
 const router = createBrowserRouter([
     {
@@ -15,7 +13,7 @@ const router = createBrowserRouter([
     },
     {
         path:"/",
-        element: <ProtectedRoute><Navbar/></ProtectedRoute>,
+        element: <NnavBar/>,
         children : [
             {
                 path:"home",

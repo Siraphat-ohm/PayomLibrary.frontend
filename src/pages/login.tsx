@@ -1,13 +1,11 @@
-import { useAuth } from "../context/AuthContext"
-import React from "react"
 import { useNavigate } from "react-router-dom";
-import instanceAxios from "../../config/baseAxios";
 import loginStyles from "../css/login.module.css"
-import yrs_logo from "../assets/yrs_logo.png"
+import axios from "../config/baseAxios";
+import useAuth from "../hooks/useAuth";
 
 function Login() {
-    const navigate = useNavigate();
     const { setAuth } = useAuth();
+    const navigate = useNavigate();
 
     function onSubmit(event:any){
         event?.preventDefault();
@@ -15,16 +13,20 @@ function Login() {
         let username:string = event.target.user.value;
         let pwd:string = event.target.pwd.value;
 
-        instanceAxios.post("/login", {user:username, pwd:pwd})
-                        .then( (res) => {
-                                    setAuth(true)
-                                    navigate("/home")
-                                })
-                        .catch( (err) => console.log(err.message));
+        const data = { user:username, pwd:pwd }
+
+        const resLogin = async() => {
+            const response = await axios.post("/login", data, { headers : { "Content-Type" : "application/json"}});
+            setAuth(response.data.auth)
+            navigate('/home')
+        }
+        resLogin();
+
+
     }
+
     return (
         <div className={loginStyles.login}>
-                        <img className={loginStyles.school_logo} src={yrs_logo} />
                             <form onSubmit={onSubmit}>
                                 <p className={loginStyles.color}>
                                     E-maill :  
