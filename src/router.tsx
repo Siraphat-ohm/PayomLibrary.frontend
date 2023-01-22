@@ -4,33 +4,32 @@ import HistoryPage from "./pages/historyPage";
 import HomePage from "./pages/homePage";
 import ListPage from "./pages/listPage";
 import Login from "./pages/login";
+import PrivateRoutes from "./util/PrivateRoutes";
 
 const router = createBrowserRouter([
     {
-        path:"/",
+        path:"/login",
         element: <Login />,
-        children : [
+    },
+    {
+        path: "/",
+        element: <PrivateRoutes><NavBar/></PrivateRoutes>,
+        children: [
             {
-                path: "/",
-                element: <NavBar/>,
-                children: [
-                    {
-                        path:"home",
-                        element: <HomePage/>
-                    },
-                    {
-                        path:"list",
-                        element: <ListPage/>
-                    },
-                    {
-                        path:"history",
-                        element: <HistoryPage/>
-                    }
-                ]
+                path:"home",
+                element: <HomePage/>
+            },
+            {
+                path:"list",
+                element: <ListPage/>
+            },
+            {
+                path:"history",
+                element: <HistoryPage/>
             }
         ]
-
-    },{
+    }
+    ,{
         path:"*",
         element: <h1>หาไม่เจอหรือเธอไม่มี</h1>
     }
