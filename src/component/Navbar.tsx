@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import  navbarStyle from "../css/navbar.module.css"
 import { Container, Nav, Navbar, Form, Button, NavDropdown } from "react-bootstrap";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ import useAuth from "../hooks/useAuth";
 
 function NavBar() {
   
-  const { setAuth, auth } = useAuth()
+  const { logout } = useAuth()
 
   const navigate = useNavigate();
 
@@ -25,14 +25,13 @@ function NavBar() {
       if (linkProps.isActive) navClass += ` ${navbarStyle.navItemAct}`;
       return navClass;
   }
-  function logout(){
+  function onLogout(){
       const handleLogout = async() => {
           await axios.get("/logout")
-          setAuth(false)
+          logout()
+          navigate("/")
       }
-
       handleLogout();
-      navigate("/login")
   }
 
 
@@ -67,7 +66,7 @@ function NavBar() {
             </Form>
             <Navbar.Text><IoCart onClick={openCart} size="25px"/> {cartQuantity} - items | siraphat</Navbar.Text>
           </Navbar.Collapse>
-          <Button style={ { "marginLeft" : '10px'}} onClick={logout}>Logout</Button>
+          <Button style={ { "marginLeft" : '10px'}} onClick={onLogout}>Logout</Button>
         </Container>
       </Navbar>
       <Outlet/>
