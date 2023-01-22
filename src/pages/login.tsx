@@ -1,11 +1,23 @@
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import loginStyles from "../css/login.module.css"
 import axios from "../config/baseAxios";
+import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 
 function Login() {
-    const { setAuth } = useAuth();
     const navigate = useNavigate();
+    const { login, isLogin } = useAuth();
+
+    useEffect(() => {
+        const getAuth = async() => {
+            const response = await axios.get('/auth')
+            if (response.status != 201) {
+                login()
+            }
+            navigate('/home')
+        }
+        getAuth();
+    }, [])
 
     function onSubmit(event:any){
         event?.preventDefault();
@@ -17,16 +29,15 @@ function Login() {
 
         const resLogin = async() => {
             const response = await axios.post("/login", data, { headers : { "Content-Type" : "application/json"}});
-            setAuth(response.data.auth)
-            navigate('/home')
+            window.location.reload()
         }
         resLogin();
-
-
     }
 
-    return (
-        <div className={loginStyles.login}>
+    const showLogin = isLogin ? loginStyles.isLogin : loginStyles.login
+
+    return (<>
+        <div className={showLogin}>
                             <form onSubmit={onSubmit}>
                                 <p className={loginStyles.color}>
                                     E-maill :  
@@ -38,7 +49,9 @@ function Login() {
                                 </p>
                                 <button className={loginStyles.button_login}>LOGIN</button>
                         </form>
-    </div> )
+    </div> 
+    {isLogin ? <Outlet/> : <></>}
+    </>)
 }
 
 export default Login

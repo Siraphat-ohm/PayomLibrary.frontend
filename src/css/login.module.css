@@ -1,3 +1,7 @@
+.isLogin {
+    display: none;
+}
+
 .login {
     text-align: center;
     background-color: white;
