@@ -8,11 +8,8 @@ import axios from "../config/baseAxios"
 import useAuth from "../hooks/useAuth";
 
 function NavBar() {
-  
-  const { logout } = useAuth()
-
   const navigate = useNavigate();
-
+  const { userName } = useAuth();
   const { cartQuantity, openCart } = useCart();
 
   const [ search, setSearch ] = useState<string>();
@@ -28,8 +25,7 @@ function NavBar() {
   function onLogout(){
       const handleLogout = async() => {
           await axios.get("/logout")
-          logout()
-          navigate("/")
+          navigate("/login")
       }
       handleLogout();
   }
@@ -64,7 +60,7 @@ function NavBar() {
               />
               <Button variant="outline-success">Search</Button>
             </Form>
-            <Navbar.Text><IoCart onClick={openCart} size="25px"/> {cartQuantity} - items | siraphat</Navbar.Text>
+            <Navbar.Text><IoCart onClick={openCart} size="25px"/> {cartQuantity} - items | {userName}</Navbar.Text>
           </Navbar.Collapse>
           <Button style={ { "marginLeft" : '10px'}} onClick={onLogout}>Logout</Button>
         </Container>
