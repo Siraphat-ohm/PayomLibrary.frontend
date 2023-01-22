@@ -1,20 +1,15 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import loginStyles from "../css/login.module.css"
 import axios from "../config/baseAxios";
-import { useEffect, useState } from "react";
-import useAuth from "../hooks/useAuth";
+import { useEffect } from "react";
 
 function Login() {
     const navigate = useNavigate();
-    const { login, isLogin } = useAuth();
 
     useEffect(() => {
         const getAuth = async() => {
-            const response = await axios.get('/auth')
-            if (response.status != 201) {
-                login()
-            }
-            navigate('/home')
+            const response = await axios.get("/auth")
+            if(response.data.isLogin) return navigate('/home')
         }
         getAuth();
     }, [])
@@ -28,16 +23,15 @@ function Login() {
         const data = { user:username, pwd:pwd }
 
         const resLogin = async() => {
-            const response = await axios.post("/login", data, { headers : { "Content-Type" : "application/json"}});
-            window.location.reload()
+            await axios.post("/login", data, { headers : { "Content-Type" : "application/json"}});
+            navigate('/home')
         }
         resLogin();
     }
 
-    const showLogin = isLogin ? loginStyles.isLogin : loginStyles.login
 
-    return (<>
-        <div className={showLogin}>
+    return (
+        <div className={loginStyles.login}>
                             <form onSubmit={onSubmit}>
                                 <p className={loginStyles.color}>
                                     E-maill :  
@@ -49,9 +43,7 @@ function Login() {
                                 </p>
                                 <button className={loginStyles.button_login}>LOGIN</button>
                         </form>
-    </div> 
-    {isLogin ? <Outlet/> : <></>}
-    </>)
+    </div>)
 }
 
 export default Login

@@ -16,7 +16,6 @@ function HomePage(){
                 setData( (e:any) => [...e, element])
             });
         }
-
         getBooks();
         
     }, [])
