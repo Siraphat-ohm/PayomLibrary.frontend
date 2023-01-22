@@ -12,27 +12,18 @@ type AuthProps = {
 type AuthContext = {
     auth : AuthProps
     setAuth : Dispatch<SetStateAction<AuthProps>>
-    login : () => void
-    logout : () => void
-    isLogin : boolean
+    userName : string
+    setUser : Dispatch<SetStateAction<string>>
 }
 
 const AuthContext = createContext({} as AuthContext)
 
 export const AuthProvider = ({ children } : AuthProviderProps) => {
     const [auth, setAuth] = useState({});
-    const [ isLogin , setIsLogin ] = useState<boolean>(false)
-
-    const login = () => {
-        setIsLogin(true)
-    }
-
-    const logout = () => {
-        setIsLogin(false)
-    }
+    const [ userName, setUser ] = useState<string>('')
 
     return (
-        <AuthContext.Provider value={ { auth, setAuth , login, logout, isLogin} }>
+        <AuthContext.Provider value={ { auth, setAuth, userName, setUser } }>
             {children}
         </AuthContext.Provider>
     )
