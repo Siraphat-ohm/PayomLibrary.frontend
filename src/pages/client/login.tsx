@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import loginStyles from "../css/login.module.css"
 import axios from "../../config/baseAxios";
 import { useEffect } from "react";
+import roles from "../../config/roles.json"
 
 function Login() {
     const navigate = useNavigate();
@@ -23,8 +24,9 @@ function Login() {
         const data = { user:username, pwd:pwd }
 
         const resLogin = async() => {
-            await axios.post("/login", data, { headers : { "Content-Type" : "application/json"}});
-            navigate('/home')
+            let reponse = await axios.post("/login", data, { headers : { "Content-Type" : "application/json"}});
+            console.log("🚀 ~ file: login.tsx:27 ~ resLogin ~ reponse", reponse.data.role)
+            if (reponse.data.role == roles.student) return navigate('/home')
         }
         resLogin();
     }

@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import NavBar from "./client/component/NavBar";
+import NavBar from "./client/components/NavBar";
 import AdLogin from "./client/pages/adminLoginPage";
 import HistoryPage from "./client/pages/historyPage";
 import HomePage from "./client/pages/homePage";

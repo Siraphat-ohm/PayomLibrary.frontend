@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import  axios  from "../config/baseAxios";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../client/hooks/useAuth";
 
 function PrivateRoutes({children}: any){
     const navigate = useNavigate();

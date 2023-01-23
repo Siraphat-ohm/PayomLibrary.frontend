@@ -1,7 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import bookcardStyles from '../css/bookcard.module.css'
 import { Button } from 'react-bootstrap';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../../context/CartContext';
 
 type CartItem = {
     id:number,

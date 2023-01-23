@@ -1,4 +1,4 @@
-import axios from '../config/baseAxios';
+import axios from '../../config/baseAxios';
 import useAuth from './useAuth';
 
 const useRefreshToken = () => {
