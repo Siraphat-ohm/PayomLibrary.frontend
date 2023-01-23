@@ -1,9 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
-import NavBar from "./component/NavBar";
-import HistoryPage from "./pages/historyPage";
-import HomePage from "./pages/homePage";
-import ListPage from "./pages/listPage";
-import Login from "./pages/login";
+import NavBar from "./client/component/NavBar";
+import AdLogin from "./client/pages/adminLoginPage";
+import HistoryPage from "./client/pages/historyPage";
+import HomePage from "./client/pages/homePage";
+import ListPage from "./client/pages/listPage";
+import Login from "./client/pages/login";
 import PrivateRoutes from "./util/PrivateRoutes";
 
 const router = createBrowserRouter([
@@ -28,6 +29,9 @@ const router = createBrowserRouter([
                 element: <HistoryPage/>
             }
         ]
+    },{
+        path:"/system",
+        element: <AdLogin/>
     }
     ,{
         path:"*",

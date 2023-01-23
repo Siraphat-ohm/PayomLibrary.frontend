@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import homepageStyles from "../css/homepage.module.css"
 import CardBook from "../component/BookCard";
 import { AxiosResponse } from "axios";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 
 function HomePage(){

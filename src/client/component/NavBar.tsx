@@ -4,8 +4,8 @@ import { Container, Nav, Navbar, Form, Button, NavDropdown } from "react-bootstr
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { IoCart } from "react-icons/io5"
 import { useCart } from "../context/CartContext";
-import axios from "../config/baseAxios"
-import useAuth from "../hooks/useAuth";
+import axios from "../../config/baseAxios"
+import useAuth from "../../hooks/useAuth";
 
 function NavBar() {
   const navigate = useNavigate();

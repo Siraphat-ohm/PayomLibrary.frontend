@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import loginStyles from "../css/login.module.css"
-import axios from "../config/baseAxios";
+import axios from "../../config/baseAxios";
 import { useEffect } from "react";
 
 function Login() {
