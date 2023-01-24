@@ -4,8 +4,6 @@ import App from './App';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 
-
-
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <AuthProvider>
       <CartProvider>

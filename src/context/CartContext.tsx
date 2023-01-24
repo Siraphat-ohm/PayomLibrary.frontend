@@ -11,6 +11,7 @@ type CartItem = {
     title:string,
     imgBase64:string,
     quantity:number
+    ISBN:string
 }
 
 type CartContext = {
@@ -47,8 +48,10 @@ export function CartProvider( {children}: CartProviderProps ){
             const title = book.title
             const imgBase64 = book.imgBase64
             const quantity = book.quantity
+            const ISBN = book.ISBN
+            console.log("🚀 ~ file: CartContext.tsx:52 ~ setCartItmes ~ ISBN", ISBN)
             if(currItems?.find((item:any) => item.id === id) == null){
-                return [...currItems, { id, title, imgBase64, quantity : quantity}]
+                return [...currItems, { id, title, imgBase64, quantity : quantity, ISBN:ISBN}]
             } else {
                 return currItems.map((item:any) => {
                     if(item.id === id){

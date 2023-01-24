@@ -23,7 +23,7 @@ function HomePage(){
     return (
         <div>
             <div className={homepageStyles.flexbox}>
-                {data.map((item:any, key:number) => (
+                {data.map((item:any) => (
                     <CardBook data={item} key={item.id}/> 
                 ))} 
             </div>

@@ -7,18 +7,20 @@ type CartItem = {
     id:number,
     title:string,
     imgBase64:string,
-    quantity:number
+    quantity:number,
+    ISBN:string
 }
 
 function CardBook(props:any){
-    const { graphic, title,  copies_owned, id } = props.data
-    const { getBookQuantity, addToCart, removeFromCart } = useCart();
+    const { graphic, title,  copies_owned, id, ISBN } = props.data
+    const { addToCart } = useCart();
 
     const book:CartItem = { 
         'id' : id,
         'title' : title,
         'imgBase64': graphic,
-        'quantity': 1
+        'quantity': 1,
+        'ISBN': ISBN
     }
     
     return (
@@ -28,7 +30,8 @@ function CardBook(props:any){
                 <Card.Title className={bookcardStyles.title_info}>title: {title}</Card.Title>
                 <Card.Text>amount: {copies_owned}</Card.Text>
             <Button variant="secondary" className={bookcardStyles.btn_view} >view</Button>
-            <Button variant="primary" className={bookcardStyles.btn_add} onClick={() => addToCart(book)}>add to cart</Button>
+            <Button variant="primary" className={bookcardStyles.btn_add} onClick={() => {
+                return addToCart(book)}}>add to cart</Button>
             </Card.Body>
         </Card>
     )

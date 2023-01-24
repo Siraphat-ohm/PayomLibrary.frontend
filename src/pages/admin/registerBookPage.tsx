@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import instanceAxios from "../../config/baseAxios";
-import styles from "../css/upload.module.css"
+import styles from "../../css/admin/upload.module.css";
 
 import Form from 'react-bootstrap/Form';
 import { Button } from "react-bootstrap";
 
-function UploadPage() {
+function RegisterBookPage() {
 
   const [file, setFile]:any = useState();
 
@@ -112,4 +112,4 @@ function UploadPage() {
   )
 }
 
-export default UploadPage;
+export default RegisterBookPage;

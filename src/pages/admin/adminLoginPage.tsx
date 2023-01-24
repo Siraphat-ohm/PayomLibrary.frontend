@@ -5,6 +5,7 @@ import axios from "../../config/baseAxios";
 import roles from "../../config/roles.json"
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { Form } from "react-bootstrap";
 
 function AdLogin(){
 
@@ -28,8 +29,7 @@ function AdLogin(){
 
         const resLogin = async() => {
             let response = await axios.post("/login", data, { headers : { "Content-Type" : "application/json"}});
-            console.log(response);
-            if (response.data.role == roles.libralian) return navigate('/system')
+            if (response.data.role == roles.libralian) return navigate('/system', )
         }
         resLogin();
     }
@@ -41,10 +41,10 @@ function AdLogin(){
         <form onSubmit={onSubmit}>
             <p className="login_header">login admin <RiAdminLine size="25px"></RiAdminLine></p>
             <p className="color">
-                <input type="user" className="text_search Font" id="input-email" name="user" placeholder="Username"/>
+                <Form.Control type="user" name="user" placeholder="Username" className="text_search"/>
             </p>
             <p className="color">
-                <input type="password"  className="text_search_2 Font" id="input-password" name="pwd" placeholder="Password"/>
+                <Form.Control type="password" name="pwd" placeholder="Password" className="text_search_2"/>
             </p>
             <button className="button_login" type="submit">Login</button>
         </form>

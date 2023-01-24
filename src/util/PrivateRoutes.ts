@@ -10,7 +10,6 @@ function PrivateRoutes({children}: any){
         const getAuth = async() => {
             const response = await axios.get('/auth')
             setUser(response.data.user)
-
             if (!response.data.isLogin) return navigate('/login')
         }
         getAuth()

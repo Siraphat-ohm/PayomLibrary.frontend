@@ -12,7 +12,7 @@ function NavBarAdmin() {
   const [ search, setSearch ] = useState<string>();
   const searchOpt = ['Author', 'ISBN', 'Keyword', 'name']
 
-  const link:string[] = ['']
+  const link:string[] = ['/system/book-store', '/system/request', '/system/receipt', '/system/register-book']
 
   function getNavAct(linkProps : any){
       let navClass = navbarStyle.navItem;
@@ -30,12 +30,12 @@ function NavBarAdmin() {
 
     return (
     <>
-      <Navbar style={{"backgroundColor": "#a9c25d"}} expand="lg">
+      <Navbar style={{"backgroundColor": "#3989a2"}} expand="lg">
         <Container>
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              {link.map((item:string, index:number) => {
-                return <NavLink key={index} className={getNavAct} style={{"paddingRight" : "10px"} } to={item}>{item.replace("/","")}</NavLink>
+            {link.map((item:string, index:number) => {
+                return <NavLink key={index} className={getNavAct} style={{"paddingRight" : "10px"} } to={item}>{item.replace("system/","").replace("/","")}</NavLink>
               })}
             </Nav>
 

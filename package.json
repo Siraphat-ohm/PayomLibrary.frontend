@@ -9,7 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/material": "^5.11.6",
     "@types/js-cookie": "^3.0.2",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.1.3",

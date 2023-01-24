@@ -17,7 +17,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
         src={`data:image/png;base64,${item.imgBase64}`} 
         style={{ height:"auto", maxWidth:"40%", objectFit:"contain" }}
       />
-       <div className="me-auto">
+      <div className="me-auto">
         <div>
           {item.title}{" "}
           <span className="text-muted" style={{ fontSize: ".65rem" }}>

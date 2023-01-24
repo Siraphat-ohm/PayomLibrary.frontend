@@ -1,0 +1,14 @@
+.navItem { 
+    display: inline-block;
+    text-decoration: none;
+    color : white;
+    font-size: 20px;
+}
+
+.navItem:hover {
+    color : #39395f;
+}
+
+.navItemAct { 
+    color : #39395f;
+}

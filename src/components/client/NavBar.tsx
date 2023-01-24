@@ -33,7 +33,7 @@ function NavBar() {
 
     return (
     <>
-      <Navbar style={{"backgroundColor": "#a9c25d"}} expand="lg">
+      <Navbar style={{"backgroundColor": "#689d6a"}} expand="lg">
         <Container>
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
