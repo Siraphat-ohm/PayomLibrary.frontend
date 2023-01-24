@@ -2,20 +2,17 @@ import { useState } from "react"
 import  navbarStyle from "../../css/client/navbar.module.css"
 import { Container, Nav, Navbar, Form, Button, NavDropdown } from "react-bootstrap";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { IoCart } from "react-icons/io5"
-import { useCart } from "../../context/CartContext";
 import axios from "../../config/baseAxios"
 import useAuth from "../../hooks/useAuth";
 
-function NavBar() {
+function NavBarAdmin() {
   const navigate = useNavigate();
   const { userName } = useAuth();
-  const { cartQuantity, openCart } = useCart();
 
   const [ search, setSearch ] = useState<string>();
   const searchOpt = ['Author', 'ISBN', 'Keyword', 'name']
 
-  const link:string[] = ['/home', '/list', '/history']
+  const link:string[] = ['']
 
   function getNavAct(linkProps : any){
       let navClass = navbarStyle.navItem;
@@ -60,7 +57,7 @@ function NavBar() {
               />
               <Button variant="outline-success">Search</Button>
             </Form>
-            <Navbar.Text><IoCart onClick={openCart} size="25px"/> {cartQuantity} - items | {userName}</Navbar.Text>
+            <Navbar.Text>{userName}</Navbar.Text>
           </Navbar.Collapse>
           <Button style={ { "marginLeft" : '10px'}} onClick={onLogout}>Logout</Button>
         </Container>
@@ -70,4 +67,4 @@ function NavBar() {
     )
 }
 
-export default NavBar;
+export default NavBarAdmin;

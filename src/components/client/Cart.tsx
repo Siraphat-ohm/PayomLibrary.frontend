@@ -1,5 +1,5 @@
 import { Button, Offcanvas, Stack } from "react-bootstrap";
-import { useCart } from "../context/CartContext";
+import { useCart } from "../../context/CartContext";
 import { CartItem } from "./CartItem";
 
 type CartProps = {

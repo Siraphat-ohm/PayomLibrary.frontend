@@ -1,5 +1,5 @@
 import { Button, Stack } from "react-bootstrap"
-import { useCart } from "../context/CartContext"
+import { useCart } from "../../context/CartContext"
 
 type CartItemProps = {
   id: number

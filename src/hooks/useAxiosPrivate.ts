@@ -1,11 +1,11 @@
-import { axiosPrivate } from "../../config/baseAxios";
+import { axiosPrivate } from "../config/baseAxios";
 import { useEffect } from "react";
 import useRefreshToken from "./useRefreshToken";
 import useAuth from "./useAuth";
 
 const useAxiosPrivate = () => {
     const refresh = useRefreshToken();
-    const { auth, setAuth } = useAuth();
+    const { auth } = useAuth();
 
     useEffect( () => {
 
@@ -14,7 +14,6 @@ const useAxiosPrivate = () => {
                 if (!config.headers['Authorization']) {
                     const newAccessToken = await refresh();
                     config.headers['Authorization'] = `Bearer ${newAccessToken}`;
-                    setAuth(!!newAccessToken)
                 }
                 return config;
             },(err) => Promise.reject(err)

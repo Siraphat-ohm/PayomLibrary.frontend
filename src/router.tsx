@@ -1,10 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
-import NavBar from "./client/components/NavBar";
-import AdLogin from "./client/pages/adminLoginPage";
-import HistoryPage from "./client/pages/historyPage";
-import HomePage from "./client/pages/homePage";
-import ListPage from "./client/pages/listPage";
-import Login from "./client/pages/login";
+import NavBarAdmin from "./components/admin/NavBarAdmin";
+import NavBar from "./components/client/NavBar";
+import AdLogin from "./pages/admin/adminLoginPage";
+import HistoryPage from "./pages/client/historyPage";
+import HomePage from "./pages/client/homePage";
+import ListPage from "./pages/client/listPage";
+import Login from "./pages/client/login";
 import PrivateRoutes from "./util/PrivateRoutes";
 
 const router = createBrowserRouter([
@@ -29,9 +30,14 @@ const router = createBrowserRouter([
                 element: <HistoryPage/>
             }
         ]
-    },{
-        path:"/system",
+    },
+    {
+        path:"/system-login",
         element: <AdLogin/>
+    },
+    {
+        path:"/system",
+        element:<NavBarAdmin/>,
     }
     ,{
         path:"*",

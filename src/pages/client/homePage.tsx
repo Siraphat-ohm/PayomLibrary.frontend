@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import homepageStyles from "../css/homepage.module.css"
-import CardBook from "../components/BookCard";
+import homepageStyles from "../../css/client/homepage.module.css"
+import CardBook from "../../components/client/BookCard"
 import { AxiosResponse } from "axios";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 
 function HomePage(){
