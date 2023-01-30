@@ -28,8 +28,8 @@ function AdLogin(){
         const data = { user:username, pwd:pwd }
 
         const resLogin = async() => {
-            let response = await axios.post("/login", data, { headers : { "Content-Type" : "application/json"}});
-            if (response.data.role == roles.libralian) return navigate('/system', )
+            let response = await axios.post("/login", data,{ headers : { "Content-Type" : "application/json"}});
+            if (response.data.role == roles.libralian) return navigate('/system')
         }
         resLogin();
     }

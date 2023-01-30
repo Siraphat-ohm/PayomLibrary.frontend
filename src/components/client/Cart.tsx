@@ -2,7 +2,7 @@ import { Button, Offcanvas, Stack } from "react-bootstrap";
 import { useCart } from "../../context/CartContext";
 import { CartItem } from "./CartItem";
 import io from 'socket.io-client';
-
+import useAuth from "../../hooks/useAuth";
 const socket = io('http://127.0.0.1:4662');
 
 type CartProps = {
@@ -10,10 +10,11 @@ type CartProps = {
 }
 
 export function Cart({isOpen}:CartProps) {
-
+    const { userId } = useAuth();
+    
     function onLoan(){
-        const order = cartItems.map( item => ({id : item.id, amount : item.quantity, title :item.title, ISBN:item.ISBN}))
-        socket.emit("order", order)
+        const order = cartItems.map( item => ({id : item.id, amount : item.quantity, title :item.title, ISBN:item.ISBN, userId:userId }))
+        socket.emit('order', order);
     }
 
     const { cartItems, closeCart, cartQuantity } = useCart()
@@ -28,7 +29,7 @@ export function Cart({isOpen}:CartProps) {
                         <CartItem key={item.id} {...item}/>
                     ))}
                     <span style={{ fontSize: "1rem" }}>total : {cartQuantity}</span>
-                    <Button onClick={onLoan} disabled={true}>borrowed</Button>
+                    <Button onClick={onLoan}>borrowed</Button>
                 </Stack>
             </Offcanvas.Body>
         </Offcanvas>

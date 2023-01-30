@@ -13,7 +13,7 @@ function Login() {
     useEffect(() => {
         const getAuth = async() => {
             const response = await axios.get("/auth")
-            if(response.data.isLogin) return navigate('/home')
+            if(response.data.isLogin&& (response.data.role == roles.student)) return navigate('/home')
         }
         getAuth();
     }, [])

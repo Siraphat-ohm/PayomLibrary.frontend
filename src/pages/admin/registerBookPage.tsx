@@ -4,9 +4,11 @@ import styles from "../../css/admin/upload.module.css";
 
 import Form from 'react-bootstrap/Form';
 import { Button } from "react-bootstrap";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 function RegisterBookPage() {
 
+  const axiosPrivate = useAxiosPrivate();
   const [file, setFile]:any = useState();
 
   function onSubmit(event:any){
@@ -36,9 +38,8 @@ function RegisterBookPage() {
     formData.append("graphic", file);
     formData.append("ISBN", ISBN);
     console.log(formData);
-    instanceAxios.post('/upload', formData, { headers: { "Content-Type": "multipart/form-data" }}).then(res => window.location.reload())
+    axiosPrivate.post('/upload', formData, { headers: { "Content-Type": "multipart/form-data" }})
   }
-
 
   return (
     <form className={styles.area} onSubmit={onSubmit} encType="multipart/form-data" method="POST" id="book-form">

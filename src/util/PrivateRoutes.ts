@@ -5,11 +5,12 @@ import useAuth from "../hooks/useAuth";
 
 function PrivateRoutes({children}: any){
     const navigate = useNavigate();
-    const { setUser } = useAuth();
+    const { setUser, setUserId } = useAuth();
     useEffect(() => {
         const getAuth = async() => {
             const response = await axios.get('/auth')
             setUser(response.data.user)
+            setUserId(response.data.id)
             if (!response.data.isLogin) return navigate('/login')
         }
         getAuth()
