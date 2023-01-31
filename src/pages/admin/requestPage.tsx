@@ -48,29 +48,34 @@ function RequestPage(){
     const [rows, setRows] = useState<Data[]>([]);
 
     useEffect(() => {
-        const getOrder = async() => {
+        const getEl = async() => {
             const response = await axiosPrivate.get('/getOrder')
-            response.data.forEach((element:any, index:number) => {
+            const el:any = []
+            await response.data.forEach((element:any, index:number) => {
                 const confirmBtn = (<><Button variant='contained' color='success' size='small'>approve</Button><Button variant='contained' color='error' size='small'>discard</Button></>)
-                setRows((e) => {
-                    return [ ...e , createData( (index + 1), element.books.title, element.books.ISBN, element.amount, element.user,confirmBtn )]
-                })
+                el.push(createData( (index + 1), element.books.title, element.books.ISBN, element.amount, element.user,confirmBtn ))
             })
+            await setRows(el)
         }
-        getOrder();
+        getEl();
 
     }, [])
 
     useEffect(() => {
-        socket.on("send-order", (arg)=>{
-            arg.forEach((element:any, index:number) => {
+        const getEl = async() => {
+            const response = await axiosPrivate.get('/getOrder')
+            const el:any = []
+            await response.data.forEach((element:any, index:number) => {
                 const confirmBtn = (<><Button variant='contained' color='success' size='small'>approve</Button><Button variant='contained' color='error' size='small'>discard</Button></>)
-                setRows((e) => {
-                    return [ createData( (index + 1), element.books.title, element.books.ISBN, element.amount, element.user,confirmBtn )]
-                })
-            });
+                el.push(createData( (index + 1), element.books.title, element.books.ISBN, element.amount, element.user,confirmBtn ))
+            })
+            await setRows(el)
+        }
+        socket.on('send-order', () => {
+            getEl();
         })
     }, [socket])
+
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
