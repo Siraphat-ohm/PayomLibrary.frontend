@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 import { Cart } from "../components/client/Cart";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
@@ -10,14 +10,12 @@ type CartItem = {
     id:number,
     title:string,
     imgBase64:string,
-    quantity:number
     ISBN:string
 }
 
 type CartContext = {
     openCart: () => void
     closeCart: () => void
-    getBookQuantity: (id :number) => number
     addToCart: (book:CartItem) => void
     removeFromCart: (id: number) => void
     cartQuantity: number
@@ -32,30 +30,24 @@ export function useCart(){
 
 export function CartProvider( {children}: CartProviderProps ){
     const [cartItems, setCartItmes] = useLocalStorage<CartItem[]>( 'book-cart', []);
-    const cartQuantity = cartItems?.reduce((quantity:any, item:any) => item.quantity + quantity, 0)
+    const cartQuantity = cartItems.length;
 
     const [isOpen, setIsOpen] = useState(false)
     const openCart = () => setIsOpen(true)
     const closeCart = () => setIsOpen(false)
-
-    function getBookQuantity(id: number) {
-        return cartItems?.find(item => item.id === id)?.quantity || 0
-    }
 
     function addToCart(book:CartItem) {
         setCartItmes((currItems : any) => {
             const id = book.id
             const title = book.title
             const imgBase64 = book.imgBase64
-            const quantity = book.quantity
             const ISBN = book.ISBN
-            console.log("🚀 ~ file: CartContext.tsx:52 ~ setCartItmes ~ ISBN", ISBN)
             if(currItems?.find((item:any) => item.id === id) == null){
-                return [...currItems, { id, title, imgBase64, quantity : quantity, ISBN:ISBN}]
+                return [...currItems, { id, title, imgBase64, ISBN:ISBN}]
             } else {
                 return currItems.map((item:any) => {
                     if(item.id === id){
-                        return { ...item, quantity: item.quantity }
+                        return { ...item }
                     } else { 
                         return item
                     }
@@ -69,7 +61,7 @@ export function CartProvider( {children}: CartProviderProps ){
     }
 
     return (
-        <CartContext.Provider value={{getBookQuantity, addToCart, removeFromCart, cartItems, cartQuantity, openCart, closeCart}}>
+        <CartContext.Provider value={{addToCart, removeFromCart, cartItems, cartQuantity, openCart, closeCart}}>
             {children}
             <Cart isOpen={isOpen}/>
         </CartContext.Provider>

@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import io from 'socket.io-client';
-const socket = io('http://127.0.0.1:4662');
 
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -32,14 +30,14 @@ const columns: readonly Column[] = [
 
 interface Data {
     index: number;
-    title: string;
-    isbn: string;
+    title: string[];
+    isbn: string[];
     amount: number;
     user: string;
     confirm?: JSX.Element | JSX.Element[];
 }
 
-function createData(index:number, title:string, isbn:string, amount:number, user:string,confirm?:any): Data {
+function createData(index:number, title:string[], isbn:string[], amount:number, user:string,confirm?:any): Data {
     return { index, title, amount, isbn, user, confirm };
 }
 
@@ -53,28 +51,13 @@ function RequestPage(){
             const el:any = []
             await response.data.forEach((element:any, index:number) => {
                 const confirmBtn = (<><Button variant='contained' color='success' size='small'>approve</Button><Button variant='contained' color='error' size='small'>discard</Button></>)
-                el.push(createData( (index + 1), element.books.title, element.books.ISBN, element.amount, element.user,confirmBtn ))
+                el.push(createData( (index + 1), ['siraphat', 'thappa'], ['2131l', 'asdf'], 1, 'siph',confirmBtn ))
             })
             await setRows(el)
         }
         getEl();
 
     }, [])
-
-    useEffect(() => {
-        const getEl = async() => {
-            const response = await axiosPrivate.get('/getOrder')
-            const el:any = []
-            await response.data.forEach((element:any, index:number) => {
-                const confirmBtn = (<><Button variant='contained' color='success' size='small'>approve</Button><Button variant='contained' color='error' size='small'>discard</Button></>)
-                el.push(createData( (index + 1), element.books.title, element.books.ISBN, element.amount, element.user,confirmBtn ))
-            })
-            await setRows(el)
-        }
-        socket.on('send-order', () => {
-            getEl();
-        })
-    }, [socket])
 
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -111,16 +94,34 @@ function RequestPage(){
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
                     return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.title}>
+                    <TableRow hover role="checkbox" tabIndex={-1} key={row.index}>
                         {columns.map((column) => {
                         const value = row[column.id];
-                        return (
-                            <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === 'number'
-                                ? column.format(value)
-                                : value}
-                            </TableCell>
+                        if (column.id == "title"){
+                            console.log(value);
+                            return (
+                                <TableCell key={column.id} align={column.align}>
+                                    {(value as Array<string>).map((item, index) => {
+                                        return <div key={index}>{item}<br/></div>
+                                    })}
+                                </TableCell>
+                                )
+                        } else if (column.id == "isbn"){
+                            console.log(value);
+                            return (
+                                <TableCell key={column.id} align={column.align}>
+                                    {(value as Array<string>).map((item, index) => {
+                                        return <div key={index}>{item}<br/></div>
+                                    })}
+                                </TableCell>
+                                )
+                        } else {
+                            return (
+                                <TableCell key={column.id} align={column.align}>
+                                {value}
+                                </TableCell>
                         );
+                        }
                         })}
                     </TableRow>
                     );

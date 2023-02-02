@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import  navbarStyle from "../../css/client/navbar.module.css"
 import { Container, Nav, Navbar, Form, Button, NavDropdown } from "react-bootstrap";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
@@ -6,11 +6,19 @@ import { IoCart } from "react-icons/io5"
 import { useCart } from "../../context/CartContext";
 import axios from "../../config/baseAxios"
 import useAuth from "../../hooks/useAuth";
+import { useSocket } from "../../context/SocketContext";
 
 function NavBar() {
   const navigate = useNavigate();
   const { userName } = useAuth();
   const { cartQuantity, openCart } = useCart();
+  const { socket } = useSocket();
+
+  useEffect(() => {
+    socket.on('order', (msg) => {
+      console.log(msg);
+    })
+  }, [socket])
 
   const [ search, setSearch ] = useState<string>();
   const searchOpt = ['Author', 'ISBN', 'Keyword', 'name']
@@ -29,7 +37,6 @@ function NavBar() {
       }
       handleLogout();
   }
-
 
     return (
     <>

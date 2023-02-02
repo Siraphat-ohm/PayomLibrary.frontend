@@ -1,6 +1,3 @@
-import SearchBar from "../component/SearchBar"
-import AppBar from "../component/Navbar"
-
 function ListPage(){
 
     return (

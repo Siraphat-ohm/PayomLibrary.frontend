@@ -3,10 +3,9 @@ import { useCart } from "../../context/CartContext"
 
 type CartItemProps = {
   id: number
-  quantity: number
 }
 
-export function CartItem({ id, quantity }: CartItemProps) {
+export function CartItem({ id }: CartItemProps) {
   const { removeFromCart, cartItems } = useCart()
   const item = cartItems.find(i => i.id === id)
   if (item == null) return null
@@ -21,7 +20,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
         <div>
           {item.title}{" "}
           <span className="text-muted" style={{ fontSize: ".65rem" }}>
-              x{quantity}
+              x 1
           </span>
         </div>
         </div>

@@ -1,9 +1,8 @@
 import { Button, Offcanvas, Stack } from "react-bootstrap";
 import { useCart } from "../../context/CartContext";
 import { CartItem } from "./CartItem";
-import io from 'socket.io-client';
 import useAuth from "../../hooks/useAuth";
-const socket = io('http://127.0.0.1:4662');
+import { useSocket } from "../../context/SocketContext";
 
 type CartProps = {
     isOpen: boolean
@@ -11,10 +10,12 @@ type CartProps = {
 
 export function Cart({isOpen}:CartProps) {
     const { userId } = useAuth();
+    const { socket } = useSocket();
     
-    function onLoan(){
-        const order = cartItems.map( item => ({id : item.id, amount : item.quantity, title :item.title, ISBN:item.ISBN, userId:userId }))
-        socket.emit('order', order);
+    async function onLoan(){
+        const order = cartItems.map( item => ({id : item.id, title :item.title, ISBN:item.ISBN, userId:userId }))
+        await socket.emit('join', userId);
+        await socket.emit('order', order);
     }
 
     const { cartItems, closeCart, cartQuantity } = useCart()
