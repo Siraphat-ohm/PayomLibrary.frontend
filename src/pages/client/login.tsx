@@ -1,55 +1,75 @@
-import { useNavigate } from "react-router-dom";
-import "../../css/client/login.css"
-import axios from "../../config/baseAxios";
-import { useEffect } from "react";
-import roles from "../../config/roles.json"
-import school_3 from "../../assets/client/img/school_logo_3.png"
-import { AiOutlineUser } from "react-icons/ai"
-import { Button, Form } from "react-bootstrap";
+import {
+    TextInput,
+    PasswordInput,
+    Paper,
+    Title,
+    Container,
+    Button,
+    Stack,
+} from '@mantine/core';
+import { useForm } from '@mantine/form';
+import axios from '../../config/baseAxios';
 
 function Login() {
-    const navigate = useNavigate();
+    const form = useForm({
+        initialValues: {
+            email: '',
+            password: '',
+        },
+    
+        validate: {
+            email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
+            password: (val) => (val.length <= 6 ? 'Password should include at least 6 characters' : null),
+        },
+    });
 
-    useEffect(() => {
-        const getAuth = async() => {
-            const response = await axios.get("/auth")
-            if(response.data.isLogin&& (response.data.role == roles.student)) return navigate('/home')
-        }
-        getAuth();
-    }, [])
+    const handleLogin = (event:any) => {
+        event.preventDefault()
+        const email = form.getInputProps('email').value;
+        const password = form.getInputProps('password').value;
 
-    function onSubmit(event:any){
-        event?.preventDefault();
-
-        let username:string = event.target.user.value;
-        let pwd:string = event.target.pwd.value;
-
-        const data = { user:username, pwd:pwd }
-
-        const resLogin = async() => {
-            let reponse = await axios.post("/login", data, { headers : { "Content-Type" : "application/json"}});
-            if (reponse.data.role == roles.student) return navigate('/home')
-        }
-        resLogin();
+        axios.post('/login', { email, password }, { 'headers': { "Content-Type": "application/json" } } ).then( res => {
+            console.log(res.status);
+        }).catch(err => console.log(err));
     }
 
     return (
-        <div className="login">
-        <p>
-            <img className="school_logo" src={school_3}/>
-        </p>
-        <form onSubmit={onSubmit}>
-            <p className="login_header">login<AiOutlineUser size="25px"></AiOutlineUser></p>
-            <p className="color">
-                <Form.Control type="user" name="user" placeholder="Username" className="text_search"/>
-            </p>
-            <p className="color">
-                <Form.Control type="password" name="pwd" placeholder="Password" className="text_search_2"/>
-            </p>
-            <Button className="button_login" type="submit">Login</Button>
-        </form>
-    </div>
-    )
+        <Container size={420} my={40}>
+            <Title
+            align="center"
+            sx={(theme) => ({ fontFamily: `Greycliff CF, ${theme.fontFamily}`, fontWeight: 900 })}
+            >
+            Welcome to yrs-lib
+            </Title>
+            <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+
+            <form onSubmit={handleLogin}>
+                <Stack>
+                <TextInput
+                    required
+                    label="Email"
+                    placeholder="hello@mantine.dev"
+                    value={form.values.email}
+                    onChange={(event) => form.setFieldValue('email', event.currentTarget.value)}
+                    error={form.errors.email && 'Invalid email'}
+                />
+
+                <PasswordInput
+                    required
+                    label="Password"
+                    placeholder="Your password"
+                    value={form.values.password}
+                    onChange={(event) => form.setFieldValue('password', event.currentTarget.value)}
+                    error={form.errors.password && 'Password should include at least 6 characters'}
+                />
+                </Stack>
+                <Button fullWidth mt="xl" type='submit'>
+                    login
+                </Button>
+                </form>
+            </Paper>
+        </Container>
+    );
 }
 
 export default Login
