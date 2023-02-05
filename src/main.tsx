@@ -1,15 +1,13 @@
 import ReactDOM from 'react-dom/client'
-import App from './App';
-import { AuthProvider } from './context/AuthContext';
-import { CartProvider } from './context/CartContext';
 import { MantineProvider } from '@mantine/core';
+import { BrowserRouter } from 'react-router-dom';
+import { Root } from './root';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <MantineProvider withGlobalStyles withNormalizeCSS>
-    <AuthProvider>
-        <CartProvider>
-          <App/>
-        </CartProvider>
-    </AuthProvider>
+  <MantineProvider withGlobalStyles withNormalizeCSS theme={
+          { colorScheme: "dark", fontFamily: "Space Mono", respectReducedMotion: false } }>
+              <BrowserRouter>
+                <Root/>
+              </BrowserRouter>
   </MantineProvider>
   )

@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 type CartProviderProps = {
@@ -6,43 +6,37 @@ type CartProviderProps = {
 }
 
 type CartItem = {
-    id:number,
-    title:string,
-    imgBase64:string,
-    ISBN:string
+    id: number,
+    title: string,
+    ISBN: string,
+    quantity: number
 }
 
 type CartContext = {
-    openCart: () => void
-    closeCart: () => void
     addToCart: (book:CartItem) => void
     removeFromCart: (id: number) => void
     cartQuantity: number
     cartItems: CartItem[]
 }
 
-const CartContext = createContext({} as CartContext)
+const CartContext = createContext({} as CartContext);
 
 export function useCart(){
-    return useContext(CartContext)
+    return useContext(CartContext);
 }
 
 export function CartProvider( {children}: CartProviderProps ){
     const [cartItems, setCartItmes] = useLocalStorage<CartItem[]>( 'book-cart', []);
     const cartQuantity = cartItems.length;
 
-    const [isOpen, setIsOpen] = useState(false)
-    const openCart = () => setIsOpen(true)
-    const closeCart = () => setIsOpen(false)
-
     function addToCart(book:CartItem) {
-        setCartItmes((currItems : any) => {
-            const id = book.id
-            const title = book.title
-            const imgBase64 = book.imgBase64
-            const ISBN = book.ISBN
+        console.log(book)
+        setCartItmes(currItems => {
+            const id = book.id;
+            const title = book.title;
+            const ISBN = book.ISBN;
             if(currItems?.find((item:any) => item.id === id) == null){
-                return [...currItems, { id, title, imgBase64, ISBN:ISBN}]
+                return [...currItems, { id, title, ISBN:ISBN} ]
             } else {
                 return currItems.map((item:any) => {
                     if(item.id === id){
@@ -54,13 +48,13 @@ export function CartProvider( {children}: CartProviderProps ){
     }
 
     function removeFromCart(id:number){
-        setCartItmes((currItems:any) => {
+        setCartItmes(currItems => {
             return currItems.filter((item: any) => item.id !== id)
         })
     }
 
     return (
-        <CartContext.Provider value={{addToCart, removeFromCart, cartItems, cartQuantity, openCart, closeCart}}>
+        <CartContext.Provider value={{addToCart, removeFromCart, cartItems, cartQuantity }}>
             {children}
         </CartContext.Provider>
     )

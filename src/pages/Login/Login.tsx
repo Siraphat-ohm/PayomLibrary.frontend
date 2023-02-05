@@ -8,9 +8,11 @@ import {
     Stack,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useNavigate } from 'react-router-dom';
 import axios from '../../config/baseAxios';
 
-function Login() {
+export const Login = () => {
+    const navigate = useNavigate();
     const form = useForm({
         initialValues: {
             email: '',
@@ -28,9 +30,11 @@ function Login() {
         const email = form.getInputProps('email').value;
         const password = form.getInputProps('password').value;
 
-        axios.post('/login', { email, password }, { 'headers': { "Content-Type": "application/json" } } ).then( res => {
-            console.log(res.status);
-        }).catch(err => console.log(err));
+        axios.post('/login', { email, password }, { 'headers': { "Content-Type": "application/json" } } )
+            .then( res => {
+                navigate('/main/home', { replace: true })
+            })
+            .catch(err => console.log(err));
     }
 
     return (
@@ -71,5 +75,3 @@ function Login() {
         </Container>
     );
 }
-
-export default Login

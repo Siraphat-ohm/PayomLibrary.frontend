@@ -1,11 +1,15 @@
-import { RouterProvider } from 'react-router-dom';
-import  router  from './router';
-import { useEffect } from 'react';
-const App = () => {
+import { AppShell } from '@mantine/core';
+import { Outlet } from 'react-router-dom';
+import './App.css';
+import { Navbars } from './components/Navbars';
 
+export function App() {
     return (
-        <RouterProvider router={router}/>
-    )
+            <AppShell 
+                padding="md"
+                navbar={<Navbars/>}
+            >
+                <Outlet/>
+            </AppShell>
+            )
 }
-
-export default App;

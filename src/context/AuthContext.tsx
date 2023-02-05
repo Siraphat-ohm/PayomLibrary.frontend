@@ -1,27 +1,33 @@
-import { createContext, Dispatch, SetStateAction, useState } from "react"
+import axios from '../config/baseAxios';
+import { useState, createContext, useEffect, useContext } from 'react';
+import { children } from '../types/children';
+import { useNavigate } from 'react-router-dom';
 
-type AuthProviderProps = {
-    children : JSX.Element | JSX.Element[]
+const AuthContext = createContext({});
+
+export function useAuth() {
+    return useContext(AuthContext)
 }
 
-type AuthContext = {
-    userName : string
-    setUser : Dispatch<SetStateAction<string>>
-    userId : string
-    setUserId : Dispatch<SetStateAction<string>>
-}
+const AuthProvidder = ({children}:children ) => {
+    const navigate = useNavigate();
 
-const AuthContext = createContext({} as AuthContext)
 
-export const AuthProvider = ({ children } : AuthProviderProps) => {
-    const [ userName, setUser ] = useState<string>('')
-    const [ userId, setUserId ] = useState<string>('')
+    useEffect(() => {
+        axios.get("/auth")
+            .then(res => {
+                navigate('/main/home', { replace: true })
+            })
+            .catch(err => {
+                navigate('/login', { replace: true })
+            })
+    }, []);
 
     return (
-        <AuthContext.Provider value={ { userName, setUser, userId, setUserId } }>
+        <AuthContext.Provider value={{ }}>
             {children}
         </AuthContext.Provider>
-    )
+    );
 }
 
-export default AuthContext;
+export default AuthProvidder;

@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Navbar, Center, Tooltip, UnstyledButton, createStyles, Stack } from '@mantine/core';
+import { Navbar, Center, Tooltip, UnstyledButton, createStyles, Stack, Button } from '@mantine/core';
 import {
     IconHome2,
     IconLogout,
@@ -7,7 +6,8 @@ import {
     IconShoppingCart,
 } from '@tabler/icons-react';
 import { MantineLogo } from '@mantine/ds';
-import { Outlet, useLinkClickHandler, useLocation } from 'react-router-dom';
+import { useLinkClickHandler, useLocation, useNavigate } from 'react-router-dom';
+import axios from '../config/baseAxios';
 
 const useStyles = createStyles((theme) => ({
     link: {
@@ -45,14 +45,21 @@ function NavbarLink({ icon: Icon, label, active, onClick }:any ) {
 }
 
 const mockdata = [
-    { icon: IconHome2, label: 'Home', link:'/home' },
-    { icon: IconListCheck, label: 'Order', link:'/order'},
-    { icon: IconShoppingCart, label: 'Cart', link:'/cart'}
+    { icon: IconHome2, label: 'Home', link:'/main/home' },
+    { icon: IconListCheck, label: 'Order', link:'/main/orders'},
+    { icon: IconShoppingCart, label: 'Cart', link:'/main/cart'}
 ];
 
-function Navbars() {
+export function Navbars() {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        axios.get("/logout").then(res => {
+            navigate('/login', { replace: true })
+        })
+    }
     
-    const links = mockdata.map((link, index) => {
+    const links = mockdata.map((link) => {
         return(<NavbarLink
             {...link}
             key={link.label}
@@ -62,7 +69,6 @@ function Navbars() {
     });
 
     return (
-        <>
     <Navbar height={950} width={{ base: 80 }} p="md">
         <Center>
             <MantineLogo type="mark" size={30} />
@@ -74,13 +80,9 @@ function Navbars() {
             </Navbar.Section>
             <Navbar.Section>
             <Stack justify="center" spacing={0}>
-                <NavbarLink icon={IconLogout} label="Logout" />
+            <NavbarLink icon={IconLogout} label="Logout" onClick={handleLogout}/>
         </Stack>
         </Navbar.Section>
     </Navbar>
-    <Outlet/>
-        </>
     );
 }
-
-export default Navbars;
