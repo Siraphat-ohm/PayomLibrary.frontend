@@ -142,7 +142,7 @@ export function Order() {
     <Table
         horizontalSpacing="md"
         verticalSpacing="xs"
-        sx={{ tableLayout: 'fixed', minWidth: 700 }}
+        sx={{  minWidth: 700 }}
     >
         <thead>
             <tr>

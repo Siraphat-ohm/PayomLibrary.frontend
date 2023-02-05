@@ -50,13 +50,14 @@ interface ThProps {
     reversed: boolean;
     sorted: boolean;
     onSort(): void;
-}
+    w? : string | number
+}  
 
-function Th({ children, reversed, sorted, onSort }: ThProps) {
+function Th({ children, reversed, sorted, onSort , w }: ThProps) {
     const { classes } = useStyles();
     const Icon = sorted ? (reversed ? IconChevronUp : IconChevronDown) : IconSelector;
     return (
-    <th className={classes.th}>
+    <th className={classes.th} style = {{ width : w }}>
         <UnstyledButton onClick={onSort} className={classes.control}>
         <Group position="apart">
             <Text weight={500} size="sm">
@@ -142,7 +143,7 @@ export const Cart = () => {
     <Table
         horizontalSpacing="md"
         verticalSpacing="xs"
-        sx={{ tableLayout: 'fixed', minWidth: 300 }}
+        sx={{  minWidth: 300 }}
         striped
         highlightOnHover
         withBorder 
@@ -175,6 +176,7 @@ export const Cart = () => {
                     sorted={sortBy == 'quantity'}
                     reversed={reverseSortDirection}
                     onSort={() => setSorting("quantity")}
+                    w = '100px'
                 >
                     quanity
                 </Th>
