@@ -5,16 +5,17 @@ type CartProviderProps = {
     children: ReactNode
 }
 
-type CartItem = {
-    id: number,
+export type CartItem = {
+    id: string
     title: string,
     ISBN: string,
-    quantity: number
+    quantity: string,
+    category: string
 }
 
 type CartContext = {
     addToCart: (book:CartItem) => void
-    removeFromCart: (id: number) => void
+    removeFromCart: (id:string) => void
     cartQuantity: number
     cartItems: CartItem[]
 }
@@ -35,8 +36,9 @@ export function CartProvider( {children}: CartProviderProps ){
             const id = book.id;
             const title = book.title;
             const ISBN = book.ISBN;
+            const category = book.category
             if(currItems?.find((item:any) => item.id === id) == null){
-                return [...currItems, { id, title, ISBN:ISBN} ]
+                return [...currItems, { id, title, ISBN, quantity: 1, category } ]
             } else {
                 return currItems.map((item:any) => {
                     if(item.id === id){
@@ -47,7 +49,7 @@ export function CartProvider( {children}: CartProviderProps ){
                 })}})
     }
 
-    function removeFromCart(id:number){
+    function removeFromCart(id:string){
         setCartItmes(currItems => {
             return currItems.filter((item: any) => item.id !== id)
         })

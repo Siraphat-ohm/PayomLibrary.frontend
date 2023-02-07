@@ -8,32 +8,31 @@ import {
     Stack,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { IconKey } from '@tabler/icons';
 import { Navigate } from 'react-router-dom';
 import axios from '../../config/baseAxios';
 import { useAuth } from '../../context/AuthContext';
 
-
-export const Login = () => {
+export const LoginAdmin = () => {
     const { isAuthenticated, setIsAuthenticated } = useAuth();
 
     const form = useForm({
         initialValues: {
-            email: '',
+            user: '',
             password: '',
         },
     
         validate: {
-            email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
             password: (val) => (val.length <= 6 ? 'Password should include at least 6 characters' : null),
         },
     });
 
     const handleLogin = (event:any) => {
         event.preventDefault()
-        const email = form.getInputProps('email').value;
+        const user = form.getInputProps('user').value;
         const password = form.getInputProps('password').value;
 
-        axios.post('/login', { email, password }, { 'headers': { "Content-Type": "application/json" } } )
+        axios.post('/login', { user, password }, { 'headers': { "Content-Type": "application/json" } } )
             .then( res => {
                 setIsAuthenticated(true)
             })
@@ -42,14 +41,14 @@ export const Login = () => {
 
     return (
             isAuthenticated ? 
-                <Navigate to="/main/home" replace={true}/>
+                <Navigate to="/sudo/home" replace={true}/>
                             :  
                 <Container size={420} my={40}>
                     <Title
                     align="center"
                     sx={(theme) => ({ fontFamily: `Greycliff CF, ${theme.fontFamily}`, fontWeight: 900 })}
                     >
-                    Welcome to yrs-lib
+                        Admin <IconKey/>
                     </Title>
                     <Paper withBorder shadow="md" p={30} mt={30} radius="md">
 
@@ -57,11 +56,11 @@ export const Login = () => {
                         <Stack>
                         <TextInput
                             required
-                            label="Email"
-                            placeholder="hello@mantine.dev"
-                            value={form.values.email}
-                            onChange={(event) => form.setFieldValue('email', event.currentTarget.value)}
-                            error={form.errors.email && 'Invalid email'}
+                            label="User"
+                            placeholder="Your username"
+                            value={form.values.user}
+                            onChange={(event) => form.setFieldValue('user', event.currentTarget.value)}
+                            error={form.errors.user && 'Invalid user'}
                         />
 
                         <PasswordInput

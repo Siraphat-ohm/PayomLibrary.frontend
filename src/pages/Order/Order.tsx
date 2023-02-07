@@ -96,11 +96,6 @@ function sortData( data: RowData[], payload: { sortBy: keyof RowData | null; rev
 
 export function Order() {
     const data:RowData[] = [
-        {"title": "Feyman lecture", "ISBN": "9780738200927", "category":"physics", "amount":"1", "status":"wating"},
-        {"title": "Feyman lecture", "ISBN": "9780738200927", "category":"physics", "amount":"1", "status":"wating"},
-        {"title": "Feyman lecture", "ISBN": "9780738200927", "category":"physics", "amount":"1", "status":"wating"},
-        {"title": "Feyman lecture", "ISBN": "9780738200927", "category":"physics", "amount":"1", "status":"wating"},
-        {"title": "Feyman lecture", "ISBN": "9780738200927", "category":"physics", "amount":"1", "status":"wating"}
     ]
     const [search, setSearch] = useState('');
     const [sortedData, setSortedData] = useState(data);
@@ -188,7 +183,7 @@ export function Order() {
                 rows
                 ) : (
                 <tr>
-                    <td colSpan={Object.keys(data[0]).length}>
+                    <td colSpan={4}>
                     <Text weight={500} align="center">
                         Nothing found
                     </Text>

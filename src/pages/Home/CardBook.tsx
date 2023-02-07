@@ -50,10 +50,11 @@ const mockdata = [
 ];
 
 interface book {
-    id: number,
+    id: string,
     title: string,
     ISBN: string,
-    quantity: number
+    quantity: string,
+    category: string
 }
 
 interface CardBookProps {
@@ -67,7 +68,8 @@ export function CardBook({ data }:CardBookProps) {
         id: data.id,
         title: data.title,
         ISBN: data.ISBN,
-        quantity: data.quantity
+        quantity: data.quantity,
+        category: data.category
     }
 
     const { classes } = useStyles();
@@ -91,7 +93,7 @@ export function CardBook({ data }:CardBookProps) {
                 ISBN: {book.ISBN}
             </Text>
             </div>
-            <Badge variant="outline">art</Badge>
+            <Badge variant="outline">{book.category}</Badge>
         </Group>
 
         <Card.Section className={classes.section} mt="md">
@@ -116,4 +118,4 @@ export function CardBook({ data }:CardBookProps) {
         </Card.Section>
         </Card>
     );
-    }
+}

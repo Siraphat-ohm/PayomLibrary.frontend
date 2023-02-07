@@ -1,33 +1,53 @@
+import { createContext, useContext, useEffect, useState } from 'react';
 import axios from '../config/baseAxios';
-import { useState, createContext, useEffect, useContext } from 'react';
 import { children } from '../types/children';
-import { useNavigate } from 'react-router-dom';
 
-const AuthContext = createContext({});
+interface User {
+    email:string,
+    role:string
+}
 
-export function useAuth() {
+interface AuthContextType { 
+    isAuthenticated: boolean,
+    setIsAuthenticated: (value: boolean) => void;
+    logout: () => void
+    user: User
+}
+
+const AuthContext = createContext<AuthContextType>({
+    isAuthenticated: false,
+    setIsAuthenticated: () => {},
+    logout: () => {},
+    user: ({} as User)
+});
+
+export const useAuth = () => {
     return useContext(AuthContext)
 }
 
-const AuthProvidder = ({children}:children ) => {
-    const navigate = useNavigate();
-
+export const AuthProvidder = ({children}:children ) => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [user, setUser] = useState(({} as User));
 
     useEffect(() => {
-        axios.get("/auth")
+        axios.get('/auth')
             .then(res => {
-                navigate('/main/home', { replace: true })
+                setIsAuthenticated(res.data.Authenticated);
+                setUser(res.data.user);
             })
             .catch(err => {
-                navigate('/login', { replace: true })
+                console.log(err)
             })
-    }, []);
+
+    }, [])
+
+    const logout = () => {
+        setIsAuthenticated(false)
+    }
 
     return (
-        <AuthContext.Provider value={{ }}>
+        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, logout,user}}>
             {children}
         </AuthContext.Provider>
     );
 }
-
-export default AuthProvidder;

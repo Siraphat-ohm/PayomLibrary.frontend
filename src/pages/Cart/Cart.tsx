@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     createStyles,
     Table,
@@ -13,6 +13,8 @@ import {
 import { keys } from '@mantine/utils';
 import { IconSelector, IconChevronDown, IconChevronUp, IconSearch } from '@tabler/icons';
 import { ButtonQuantity } from './ButtonQuantity';
+import { useCart } from '../../context/CartContext';
+import { IconTrashX } from '@tabler/icons-react';
 
 const useStyles = createStyles((theme) => ({
     th: {
@@ -36,12 +38,12 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-interface RowData {
-    id: string,
+type RowData = {
+    id: string
     title: string,
     ISBN: string,
-    category: string,
-    quantity: string
+    quantity: string,
+    category: string
 }
 
 
@@ -99,15 +101,29 @@ function sortData( data: RowData[], payload: { sortBy: keyof RowData | null; rev
 }
 
 export const Cart = () => {
-    const data:RowData[] = [
-        {"id":"1", "title": "Feyman lecture", "ISBN": "9780738200927", "category":"physics", "quantity":"1"},
-        {"id":"1", "title": "Feyman lecture", "ISBN": "9780738200927", "category":"physics", "quantity":"1"},
-        {"id":"1", "title": "Feyman lecture", "ISBN": "9780738200927", "category":"physics", "quantity":"1"}
-    ]
+    const { cartItems, removeFromCart } = useCart();
+
+    const [data, setData] = useState<RowData[]>([])
+    const [rows, setRows] = useState<JSX.Element[]>([])
+
     const [search, setSearch] = useState('');
     const [sortedData, setSortedData] = useState(data);
     const [sortBy, setSortBy] = useState<keyof RowData | null>(null);
     const [reverseSortDirection, setReverseSortDirection] = useState(false);
+
+    useEffect(() => {
+        const items = cartItems.map(item => item)
+        setData(items)
+        const rows:JSX.Element[] = items.map((row) => (
+        <tr key={row.id}>
+            <td>{row.title}</td>
+            <td>{row.category}</td>
+            <td>{row.ISBN}</td>
+            <td><ButtonQuantity/></td>
+            <td><IconTrashX onClick={() => removeFromCart(row.id)}></IconTrashX></td>
+        </tr>));
+        setRows(rows)
+        }, [cartItems])
 
     const setSorting = (field: keyof RowData) => {
         const reversed = field === sortBy ? !reverseSortDirection : false;
@@ -122,15 +138,6 @@ export const Cart = () => {
     setSortedData(sortData(data, { sortBy, reversed: reverseSortDirection, search: value }));
     };
 
-    const rows = sortedData.map((row) => (
-    <tr key={row.title}>
-        <td>{row.title}</td>
-        <td>{row.category}</td>
-        <td>{row.ISBN}</td>
-        <td><ButtonQuantity/></td>
-    </tr>
-    ));
-
     return (
     <ScrollArea>
         <TextInput
@@ -144,7 +151,6 @@ export const Cart = () => {
         horizontalSpacing="md"
         verticalSpacing="xs"
         sx={{  minWidth: 300 }}
-        striped
         highlightOnHover
         withBorder 
         withColumnBorders
@@ -180,6 +186,14 @@ export const Cart = () => {
                 >
                     quanity
                 </Th>
+                <Th
+                    sorted={sortBy == 'quantity'}
+                    reversed={reverseSortDirection}
+                    onSort={() => setSorting("quantity")}
+                    w = '100px'
+                >
+                    action
+                </Th>
             </tr>
         </thead>
         <tbody>
@@ -187,7 +201,7 @@ export const Cart = () => {
                 rows
                 ) : (
                 <tr>
-                    <td colSpan={Object.keys(data[0]).length}>
+                    <td colSpan={5}>
                     <Text weight={500} align="center">
                         Nothing found
                     </Text>

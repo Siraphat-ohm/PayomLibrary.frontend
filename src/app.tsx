@@ -1,15 +1,21 @@
 import { AppShell } from '@mantine/core';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import './App.css';
 import { Navbars } from './components/Navbars';
+import { useAuth } from './context/AuthContext';
 
 export function App() {
+    const { isAuthenticated } = useAuth();
+
     return (
-            <AppShell 
-                padding="md"
-                navbar={<Navbars/>}
-            >
+        (isAuthenticated) ? 
+        <AppShell 
+            padding="md"
+            navbar={<Navbars/>}
+        >
                 <Outlet/>
-            </AppShell>
-            )
+            </AppShell>  
+            :   
+        <Navigate to="/login" replace={true}/>
+        )
 }

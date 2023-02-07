@@ -1,9 +1,13 @@
-import { Navbar, Center, Tooltip, UnstyledButton, createStyles, Stack, Button } from '@mantine/core';
+import { Navbar, Center, Tooltip, UnstyledButton, createStyles, Stack } from '@mantine/core';
 import {
     IconHome2,
     IconLogout,
     IconListCheck,
     IconShoppingCart,
+    IconBook2,
+    IconGitPullRequest,
+    IconReceipt,
+    IconBookUpload,
 } from '@tabler/icons-react';
 import { MantineLogo } from '@mantine/ds';
 import { useLinkClickHandler, useLocation, useNavigate } from 'react-router-dom';
@@ -46,9 +50,10 @@ function NavbarLink({ icon: Icon, label, active, onClick }:any ) {
 }
 
 const mockdata = [
-    { icon: IconHome2, label: 'Home', link:'/main/home' },
-    { icon: IconListCheck, label: 'Order', link:'/main/orders'},
-    { icon: IconShoppingCart, label: 'Cart', link:'/main/cart'}
+    { icon: IconBook2, label: 'Books', link:'/main/books' },
+    { icon: IconGitPullRequest, label: 'Request', link:'/main/request'},
+    { icon: IconReceipt, label: 'Receipt', link:'/main/receipt'},
+    { icon: IconBookUpload, label: 'Book-Register', link:'/main/register-book'}
 ];
 
 export function Navbars() {
