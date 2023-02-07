@@ -4,8 +4,7 @@ import { AuthProvidder } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import { Cart } from "./pages/Cart/Cart";
 import { Home } from "./pages/Home/Home";
-import { Login } from "./pages/Login/Login";
-import { LoginAdmin } from "./pages/Login/LoginAdmin";
+import { AdminLogin, UserLogin } from "./pages/Login/Login";
 import { Order } from "./pages/Order/Order";
 
 export function Root() {
@@ -13,16 +12,13 @@ export function Root() {
         <AuthProvidder>
             <CartProvider>
                 <Routes>
-                    <Route path='/login' element={<Login/>} />
+                    <Route path='/login' element={<UserLogin/>} />
                     <Route path='/main' element={<App/>}>
                         <Route path='home' element={<Home/>}/>
                         <Route path='orders' element={<Order/>}/>
                         <Route path='cart' element={<Cart/>}/>
                     </Route>
-                    <Route path='/sudo-login' element={<LoginAdmin/>}/>
-                    <Route path="/sudo" element={<App/>}>
-                        <Route path=""/>
-                    </Route>
+                    <Route path='/sudo-login' element={<AdminLogin/>} />
                 </Routes>
             </CartProvider>
         </AuthProvidder>

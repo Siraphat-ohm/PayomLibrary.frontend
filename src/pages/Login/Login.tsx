@@ -8,12 +8,16 @@ import {
     Stack,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { IconKey } from '@tabler/icons-react';
 import { Navigate } from 'react-router-dom';
 import axios from '../../config/baseAxios';
 import { useAuth } from '../../context/AuthContext';
 
+interface LoginProps {
+    isAdmin?: boolean
+}
 
-export const Login = () => {
+const Login = ({isAdmin = false}: LoginProps) => {
     const { isAuthenticated, setIsAuthenticated } = useAuth();
 
     const form = useForm({
@@ -33,7 +37,7 @@ export const Login = () => {
         const email = form.getInputProps('email').value;
         const password = form.getInputProps('password').value;
 
-        axios.post('/login', { email, password }, { 'headers': { "Content-Type": "application/json" } } )
+        axios.post('/login', { email, password, isAdmin }, { 'headers': { "Content-Type": "application/json" } } )
             .then( res => {
                 setIsAuthenticated(true)
             })
@@ -45,12 +49,6 @@ export const Login = () => {
                 <Navigate to="/main/home" replace={true}/>
                             :  
                 <Container size={420} my={40}>
-                    <Title
-                    align="center"
-                    sx={(theme) => ({ fontFamily: `Greycliff CF, ${theme.fontFamily}`, fontWeight: 900 })}
-                    >
-                    Welcome to yrs-lib
-                    </Title>
                     <Paper withBorder shadow="md" p={30} mt={30} radius="md">
 
                     <form onSubmit={handleLogin}>
@@ -81,3 +79,34 @@ export const Login = () => {
                 </Container> 
     );
 }
+
+const UserLogin = () => {
+    return (
+        <div style={{paddingTop:"30px"}}>
+            <Title
+            align="center"
+            sx={(theme) => ({ fontFamily: `Greycliff CF, ${theme.fontFamily}`, fontWeight: 900 })}
+            >
+            Welcome to yrs-lib
+            </Title>
+            <Login/>
+        </div>
+    )
+}
+
+const AdminLogin = () => {
+    return (
+        <div style={{paddingTop:"30px"}}>
+            <Title
+            align="center"
+            sx={(theme) => ({ fontFamily: `Greycliff CF, ${theme.fontFamily}`, fontWeight: 900 })}
+            >
+                Admin <IconKey/>
+            </Title>
+            <Login isAdmin={true}/>
+
+        </div>
+    )
+}
+
+export { UserLogin, AdminLogin};
