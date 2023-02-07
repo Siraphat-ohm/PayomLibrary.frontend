@@ -50,13 +50,13 @@ function NavbarLink({ icon: Icon, label, active, onClick }:any ) {
 }
 
 const mockdata = [
-    { icon: IconBook2, label: 'Books', link:'/main/books' },
-    { icon: IconGitPullRequest, label: 'Request', link:'/main/request'},
-    { icon: IconReceipt, label: 'Receipt', link:'/main/receipt'},
-    { icon: IconBookUpload, label: 'Book-Register', link:'/main/register-book'}
+    { icon: IconBook2, label: 'Books', link:'/sudo/books' },
+    { icon: IconGitPullRequest, label: 'Request', link:'/sudo/request'},
+    { icon: IconReceipt, label: 'Receipt', link:'/sudo/receipt'},
+    { icon: IconBookUpload, label: 'Book-Register', link:'/sudo/register-book'}
 ];
 
-export function Navbars() {
+export const NavbarsAdmin = () => {
     const navigate = useNavigate();
     const { logout } = useAuth();
 

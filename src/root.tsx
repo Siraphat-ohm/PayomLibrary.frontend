@@ -19,6 +19,12 @@ export function Root() {
                         <Route path='cart' element={<Cart/>}/>
                     </Route>
                     <Route path='/sudo-login' element={<AdminLogin/>} />
+                    <Route path='/sudo' element={<App admin/>}>
+                        <Route path="books" element={<h1>this is book store.</h1>}/>
+                        <Route path="request" element={<h1>this is request page.</h1>}/>
+                        <Route path="receipt" element={<h1>this is receipt page.</h1>}/>
+                        <Route path="register-book" element={<h1>this is register page.</h1>}/>
+                    </Route>
                 </Routes>
             </CartProvider>
         </AuthProvidder>

@@ -12,13 +12,17 @@ interface AuthContextType {
     setIsAuthenticated: (value: boolean) => void;
     logout: () => void
     user: User
+    isAdmin: boolean
+    setIsAdmin: (value: boolean) => void;
 }
 
 const AuthContext = createContext<AuthContextType>({
     isAuthenticated: false,
     setIsAuthenticated: () => {},
     logout: () => {},
-    user: ({} as User)
+    user: ({} as User),
+    isAdmin: false,
+    setIsAdmin: () => {}
 });
 
 export const useAuth = () => {
@@ -28,12 +32,14 @@ export const useAuth = () => {
 export const AuthProvidder = ({children}:children ) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(({} as User));
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
         axios.get('/auth')
             .then(res => {
                 setIsAuthenticated(res.data.Authenticated);
-                setUser(res.data.user);
+                setUser(res.data);
+                setIsAdmin(res.data.isAdmin);
             })
             .catch(err => {
                 console.log(err)
@@ -46,7 +52,7 @@ export const AuthProvidder = ({children}:children ) => {
     }
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, logout,user}}>
+        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, logout, user, isAdmin, setIsAdmin}}>
             {children}
         </AuthContext.Provider>
     );

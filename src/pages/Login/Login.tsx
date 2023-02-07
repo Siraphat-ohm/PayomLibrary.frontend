@@ -14,11 +14,11 @@ import axios from '../../config/baseAxios';
 import { useAuth } from '../../context/AuthContext';
 
 interface LoginProps {
-    isAdmin?: boolean
+    admin?: boolean
 }
 
-const Login = ({isAdmin = false}: LoginProps) => {
-    const { isAuthenticated, setIsAuthenticated } = useAuth();
+const Login = ({admin = false}: LoginProps) => {
+    const { isAuthenticated, setIsAuthenticated, isAdmin, setIsAdmin } = useAuth();
 
     const form = useForm({
         initialValues: {
@@ -37,16 +37,17 @@ const Login = ({isAdmin = false}: LoginProps) => {
         const email = form.getInputProps('email').value;
         const password = form.getInputProps('password').value;
 
-        axios.post('/login', { email, password, isAdmin }, { 'headers': { "Content-Type": "application/json" } } )
+        axios.post('/login', { email, password, admin }, { 'headers': { "Content-Type": "application/json" } } )
             .then( res => {
-                setIsAuthenticated(true)
+                setIsAuthenticated(true);
+                setIsAdmin(res.data.isAdmin);
             })
             .catch(err => console.log(err));
     }
 
     return (
             isAuthenticated ? 
-                <Navigate to="/main/home" replace={true}/>
+                isAdmin ? <Navigate to="/sudo" replace={true}/> : <Navigate to="/main/home" replace={true}/> 
                             :  
                 <Container size={420} my={40}>
                     <Paper withBorder shadow="md" p={30} mt={30} radius="md">
@@ -103,7 +104,7 @@ const AdminLogin = () => {
             >
                 Admin <IconKey/>
             </Title>
-            <Login isAdmin={true}/>
+            <Login admin/>
 
         </div>
     )
