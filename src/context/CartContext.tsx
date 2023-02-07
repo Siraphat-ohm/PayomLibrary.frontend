@@ -16,6 +16,8 @@ export type CartItem = {
 type CartContext = {
     addToCart: (book:CartItem) => void
     removeFromCart: (id:string) => void
+    increaseCartQuantity: (id: string) => void
+    decreaseCartQuantity: (id: string) => void
     cartQuantity: number
     cartItems: CartItem[]
 }
@@ -55,8 +57,38 @@ export function CartProvider( {children}: CartProviderProps ){
         })
     }
 
+    function increaseCartQuantity(id: string) {
+        setCartItmes((currItems:any) => {
+          if (currItems.find((item:any) => item.id === id) == null) {
+            return [...currItems, { id, quantity: 1 }]
+          } else {
+            return currItems.map((item:any) => {
+              if (item.id === id) {
+                return { ...item, quantity: Number(item.quantity) + 1 }
+              } else {
+                return item
+              }
+            })
+          }
+        })
+      }
+      function decreaseCartQuantity(id: string) {
+        setCartItmes((currItems:any) => {
+          if (currItems.find((item:any) => item.id === id)?.quantity === 1) {
+            return currItems.filter((item:any) => item.id !== id)
+          } else {
+            return currItems.map((item:any) => {
+              if (item.id === id) {
+                return { ...item, quantity: Number(item.quantity) - 1 }
+              } else {
+                return item
+              }
+            })
+          }
+        })
+      }
     return (
-        <CartContext.Provider value={{addToCart, removeFromCart, cartItems, cartQuantity }}>
+        <CartContext.Provider value={{addToCart, removeFromCart, cartItems, cartQuantity, increaseCartQuantity, decreaseCartQuantity }}>
             {children}
         </CartContext.Provider>
     )

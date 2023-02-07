@@ -119,7 +119,7 @@ export const Cart = () => {
             <td>{row.title}</td>
             <td>{row.category}</td>
             <td>{row.ISBN}</td>
-            <td><ButtonQuantity/></td>
+            <td><ButtonQuantity id={row.id}/></td>
             <td><IconTrashX onClick={() => removeFromCart(row.id)}></IconTrashX></td>
         </tr>));
         setRows(rows)

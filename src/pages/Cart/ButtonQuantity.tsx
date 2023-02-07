@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { createStyles, NumberInput, NumberInputHandlers, ActionIcon } from '@mantine/core';
 import { IconPlus, IconMinus } from '@tabler/icons';
+import { useCart } from '../../context/CartContext';
 
 const useStyles = createStyles((theme) => ({
     wrapper: {
@@ -40,19 +41,25 @@ const useStyles = createStyles((theme) => ({
 interface QuantityInputProps {
     min?: number;
     max?: number;
+    id: string
 }
 
-export const ButtonQuantity = ({ min = 1, max = 3 }: QuantityInputProps) => {
+export const ButtonQuantity = ({ min = 1, max = 3, id }: QuantityInputProps) => {
     const { classes } = useStyles();
     const handlers = useRef<NumberInputHandlers>(null);
     const [value, setValue] = useState<number | undefined>(1);
+    const { increaseCartQuantity, decreaseCartQuantity } = useCart();
 
     return (
         <div className={classes.wrapper}>
             <ActionIcon<'button'>
                 size={28}
                 variant="transparent"
-                onClick={() => handlers.current?.decrement()}
+                onClick={() => {
+                    handlers.current?.decrement()
+                    decreaseCartQuantity(id)
+                    }
+                }
                 disabled={value === min}
                 className={classes.control}
                 onMouseDown={(event) => event.preventDefault()}
@@ -73,7 +80,11 @@ export const ButtonQuantity = ({ min = 1, max = 3 }: QuantityInputProps) => {
             <ActionIcon<'button'>
                 size={28}
                 variant="transparent"
-                onClick={() => handlers.current?.increment()}
+                onClick={() => {
+                    handlers.current?.increment()
+                    increaseCartQuantity(id)
+                }
+            }
                 disabled={value === max}
                 className={classes.control}
                 onMouseDown={(event) => event.preventDefault()}
