@@ -15,6 +15,7 @@ import { IconSelector, IconChevronDown, IconChevronUp, IconSearch } from '@table
 import { ButtonQuantity } from './ButtonQuantity';
 import { useCart } from '../../context/CartContext';
 import { IconTrashX } from '@tabler/icons-react';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const useStyles = createStyles((theme) => ({
     th: {
@@ -102,6 +103,7 @@ function sortData( data: RowData[], payload: { sortBy: keyof RowData | null; rev
 
 export const Cart = () => {
     const { cartItems, removeFromCart } = useCart();
+    const axiosPrivate = useAxiosPrivate();
 
     const [data, setData] = useState<RowData[]>([])
     const [rows, setRows] = useState<JSX.Element[]>([])
@@ -137,6 +139,10 @@ export const Cart = () => {
     setSearch(value);
     setSortedData(sortData(data, { sortBy, reversed: reverseSortDirection, search: value }));
     };
+
+    const handleRent = () => {
+        axiosPrivate.post('/order', cartItems, { 'headers': { "Content-Type": "application/json" } })
+    }
 
     return (
     <ScrollArea>
@@ -210,7 +216,7 @@ export const Cart = () => {
             )}
         </tbody>
     </Table>
-    <Button>rent now</Button>
+    <Button onClick={handleRent}>rent now</Button>
     </ScrollArea>
     );
 }
