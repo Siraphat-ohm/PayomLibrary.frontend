@@ -43,7 +43,6 @@ interface RowData {
     user: string
 }
 
-
 interface ThProps {
     children: React.ReactNode;
     reversed: boolean;
@@ -72,8 +71,7 @@ function Th({ children, reversed, sorted, onSort , w }: ThProps) {
 }
 
 export const RequestOrder = () => {
-    const data:RowData[] = [ { id:"1", ISBN:["4879"], amount:"3", title:["kuy"], user:"banana"}
-    ]
+    const data:RowData[] = []
     const [search, setSearch] = useState('');
     const [sortedData, setSortedData] = useState(data);
     const [sortBy, setSortBy] = useState<keyof RowData | null>(null);
@@ -95,7 +93,7 @@ export const RequestOrder = () => {
         <td>{row.title}</td>
         <td>{row.ISBN}</td>
         <td>{row.amount}</td>
-        <td><Button leftIcon={<IconX/>} color="red">Approve</Button><Button leftIcon={<IconCheck/>} color="green">Discard</Button></td>
+        <td><Button leftIcon={<IconCheck/>} color="green">Approve</Button><Button leftIcon={<IconX/>} color="red">Discard</Button></td>
     </tr>
     ));
 return (
