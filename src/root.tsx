@@ -1,11 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import { App } from "./App";
+import { App } from "./app";
 import { AuthProvidder } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import { Cart } from "./pages/Cart/Cart";
 import { Home } from "./pages/Home/Home";
 import { AdminLogin, UserLogin } from "./pages/Login/Login";
 import { Order } from "./pages/Order/Order";
+import { RequestOrder } from "./pages/RequestOrder/Request";
 
 export function Root() {
     return (
@@ -21,7 +22,7 @@ export function Root() {
                     <Route path='/sudo-login' element={<AdminLogin/>} />
                     <Route path='/sudo' element={<App admin/>}>
                         <Route path="books" element={<h1>this is book store.</h1>}/>
-                        <Route path="request" element={<h1>this is request page.</h1>}/>
+                        <Route path="request" element={<RequestOrder/>}/>
                         <Route path="receipt" element={<h1>this is receipt page.</h1>}/>
                         <Route path="register-book" element={<h1>this is register page.</h1>}/>
                     </Route>
