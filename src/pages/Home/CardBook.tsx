@@ -4,8 +4,10 @@ import { useCart } from '../../context/CartContext';
 
 const useStyles = createStyles((theme) => ({
     card: {
-        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
-        width : "18%"
+        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7]: theme.white,
+        width: "18%",
+        marginRight: "20px",
+        marginBottom: "20px"
     },
 
     imageSection: {
@@ -54,14 +56,15 @@ interface book {
     title: string,
     ISBN: string,
     quantity: string,
-    category: string
+    category: string,
+    img: string
 }
 
 interface CardBookProps {
     data: book
 }
 
-export function CardBook({ data }:CardBookProps) {
+export function CardBook({ data } : CardBookProps) {
     const { addToCart } = useCart();
 
     const book: book = {
@@ -69,7 +72,8 @@ export function CardBook({ data }:CardBookProps) {
         title: data.title,
         ISBN: data.ISBN,
         quantity: data.quantity,
-        category: data.category
+        category: data.category,
+        img: data.img
     }
 
     const { classes } = useStyles();
@@ -81,41 +85,41 @@ export function CardBook({ data }:CardBookProps) {
     ));
 
     return (
-        <Card withBorder radius="md" className={classes.card}>
-        <Card.Section className={classes.imageSection}>
-            <Image src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/art-book-cover-design-template-34323b0f0734dccded21e0e3bebf004c_screen.jpg?ts=1637015198https://i.imgur.com/ZL52Q2D.png" alt="Tesla Model S" />
-        </Card.Section>
+        <Card withBorder radius="md" className={classes.card} >
+            <Card.Section className={classes.imageSection}>
+                <Image src={book.img} alt="Tesla Model S" />
+            </Card.Section>
 
-        <Group position="apart" mt="md">
-            <div>
-            <Text weight={500}>{book.title}</Text>
-            <Text size="xs" color="dimmed">
-                ISBN: {book.ISBN}
-            </Text>
-            </div>
-            <Badge variant="outline">{book.category}</Badge>
-        </Group>
-
-        <Card.Section className={classes.section} mt="md">
-            <Text size="sm" color="dimmed" className={classes.label}>
-            detail
-            </Text>
-
-            <Group spacing={8} mb={-8}>
-            {features}
+            <Group position="apart" mt="md">
+                <div>
+                <Text weight={500} >{book.title.length > 31 ? `${book.title.substring(0, 27)}...`: book.title}</Text>
+                <Text size="xs" color="dimmed">
+                    ISBN: {book.ISBN}
+                </Text>
+                <Badge variant="outline">{book.category}</Badge>
+                </div>
             </Group>
-        </Card.Section>
 
-        <Card.Section className={classes.section}>
-            <Group spacing={30}>
-            <Button radius="md" size="md" onClick={() => addToCart(book)}>
-                add to cart
-            </Button>
-            <Button radius="md" size="md" variant="outline" color="gray">
-                view
-            </Button>
-            </Group>
-        </Card.Section>
+            <Card.Section className={classes.section} mt="md">
+                <Text size="sm" color="dimmed" className={classes.label}>
+                detail
+                </Text>
+
+                <Group spacing={8} mb={-8}>
+                {features}
+                </Group>
+            </Card.Section>
+
+            <Card.Section className={classes.section}>
+                <Group spacing={30}>
+                <Button radius="md" size="md" onClick={() => addToCart(book)}>
+                    add to cart
+                </Button>
+                <Button radius="md" size="md" variant="outline" color="gray">
+                    view
+                </Button>
+                </Group>
+            </Card.Section>
         </Card>
     );
 }
