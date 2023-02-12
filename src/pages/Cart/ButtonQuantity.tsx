@@ -41,13 +41,14 @@ const useStyles = createStyles((theme) => ({
 interface QuantityInputProps {
     min?: number;
     max?: number;
-    id: string
+    id: string;
+    valueItem: number
 }
 
-export const ButtonQuantity = ({ min = 1, max = 3, id }: QuantityInputProps) => {
+export const ButtonQuantity = ({ min = 1, max = 3, id, valueItem }: QuantityInputProps) => {
     const { classes } = useStyles();
     const handlers = useRef<NumberInputHandlers>(null);
-    const [value, setValue] = useState<number | undefined>(1);
+    const [value, setValue] = useState<number | undefined>(valueItem);
     const { increaseCartQuantity, decreaseCartQuantity } = useCart();
 
     return (

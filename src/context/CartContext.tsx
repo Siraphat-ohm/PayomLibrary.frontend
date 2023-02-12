@@ -18,6 +18,7 @@ type CartContext = {
     removeFromCart: (id:string) => void
     increaseCartQuantity: (id: string) => void
     decreaseCartQuantity: (id: string) => void
+    clearCart: () => void
     cartQuantity: number
     cartItems: CartItem[]
 }
@@ -33,7 +34,6 @@ export function CartProvider( {children}: CartProviderProps ){
     const cartQuantity = cartItems.length;
 
     function addToCart(book:CartItem) {
-        console.log(book)
         setCartItmes(currItems => {
             const id = book.id;
             const title = book.title;
@@ -87,8 +87,12 @@ export function CartProvider( {children}: CartProviderProps ){
           }
         })
       }
+
+      function clearCart(){
+        setCartItmes([] as CartItem[])
+      }
     return (
-        <CartContext.Provider value={{addToCart, removeFromCart, cartItems, cartQuantity, increaseCartQuantity, decreaseCartQuantity }}>
+        <CartContext.Provider value={{addToCart, removeFromCart, cartItems, cartQuantity, increaseCartQuantity, decreaseCartQuantity, clearCart }}>
             {children}
         </CartContext.Provider>
     )

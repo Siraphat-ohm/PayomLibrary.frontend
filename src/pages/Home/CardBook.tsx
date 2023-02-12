@@ -46,10 +46,6 @@ const useStyles = createStyles((theme) => ({
         color: theme.colorScheme === 'dark' ? theme.colors.dark[2] : theme.colors.gray[5],
     },  }));
 
-const mockdata = [
-    { label: 'Kate Ashton and more...', icon: IconBallpen },
-    { label: '2', icon: IconPaperBag },
-];
 
 interface book {
     id: string,
@@ -57,7 +53,8 @@ interface book {
     ISBN: string,
     quantity: string,
     category: string,
-    img: string
+    img: string,
+    author: string
 }
 
 interface CardBookProps {
@@ -67,14 +64,11 @@ interface CardBookProps {
 export function CardBook({ data } : CardBookProps) {
     const { addToCart } = useCart();
 
-    const book: book = {
-        id: data.id,
-        title: data.title,
-        ISBN: data.ISBN,
-        quantity: data.quantity,
-        category: data.category,
-        img: data.img
-    }
+    
+    const mockdata = [
+        { label: data.author, icon: IconBallpen },
+        { label: data.quantity, icon: IconPaperBag },
+    ];
 
     const { classes } = useStyles();
     const features = mockdata.map((feature) => (
@@ -83,20 +77,21 @@ export function CardBook({ data } : CardBookProps) {
         <Text size="xs">{feature.label}</Text>
         </Center>
     ));
+    
 
     return (
-        <Card withBorder radius="md" className={classes.card} >
+        <Card withBorder radius="md" className={classes.card}>
             <Card.Section className={classes.imageSection}>
-                <Image src={book.img} alt="Tesla Model S" />
+                <Image src={data.img} alt="Tesla Model S" />
             </Card.Section>
 
             <Group position="apart" mt="md">
                 <div>
-                <Text weight={500} >{book.title.length > 31 ? `${book.title.substring(0, 27)}...`: book.title}</Text>
+                <Text weight={500} >{data.title}</Text>
                 <Text size="xs" color="dimmed">
-                    ISBN: {book.ISBN}
+                    ISBN: {data.ISBN}
                 </Text>
-                <Badge variant="outline">{book.category}</Badge>
+                <Badge variant="outline">{data.category}</Badge>
                 </div>
             </Group>
 
@@ -112,7 +107,7 @@ export function CardBook({ data } : CardBookProps) {
 
             <Card.Section className={classes.section}>
                 <Group spacing={30}>
-                <Button radius="md" size="md" onClick={() => addToCart(book)}>
+                <Button radius="md" size="md" onClick={() => addToCart(data)}>
                     add to cart
                 </Button>
                 <Button radius="md" size="md" variant="outline" color="gray">

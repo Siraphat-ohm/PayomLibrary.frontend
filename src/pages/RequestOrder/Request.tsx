@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     createStyles,
     Table,
@@ -13,6 +13,8 @@ import {
 import { IconSelector, IconChevronDown, IconChevronUp, IconSearch, IconX } from '@tabler/icons';
 import React from 'react';
 import { IconCheck } from '@tabler/icons-react';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
     th: {
@@ -45,24 +47,19 @@ interface RowData {
 
 interface ThProps {
     children: React.ReactNode;
-    reversed: boolean;
-    sorted: boolean;
-    onSort(): void;
     w? : string
 }
 
-function Th({ children, reversed, sorted, onSort , w }: ThProps) {
+function Th({ children, w }: ThProps) {
     const { classes } = useStyles();
-    const Icon = sorted ? (reversed ? IconChevronUp : IconChevronDown) : IconSelector;
     return (
-    <th className={classes.th} style = {{ width : w }}>
-        <UnstyledButton onClick={onSort} className={classes.control}>
+    <th className={classes.th} style = {{ width : w }} >
+        <UnstyledButton className={classes.control}>
         <Group position="apart">
             <Text weight={500} size="sm">
             {children}
             </Text>
             <Center className={classes.icon}>
-            <Icon size={14} stroke={1.5} />
             </Center>
         </Group>
         </UnstyledButton>
@@ -71,76 +68,50 @@ function Th({ children, reversed, sorted, onSort , w }: ThProps) {
 }
 
 export const RequestOrder = () => {
-    const data:RowData[] = []
-    const [search, setSearch] = useState('');
-    const [sortedData, setSortedData] = useState(data);
-    const [sortBy, setSortBy] = useState<keyof RowData | null>(null);
-    const [reverseSortDirection, setReverseSortDirection] = useState(false);
+    const axiosPrivate = useAxiosPrivate();
+    const [data, setData] = useState<RowData[]>([]);
+    const navigate = useNavigate();
 
-    const setSorting = (field: keyof RowData) => {
-        const reversed = field === sortBy ? !reverseSortDirection : false;
-        setReverseSortDirection(reversed);
-        setSortBy(field);
-    };
+    useEffect( () => {
+        axiosPrivate.get('/order/all').then(res => setData(res.data));
+    }, [data])
 
-    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.currentTarget;
-    setSearch(value);
-    };
+    const handleApprove = (id: string) => {
+        axiosPrivate.get(`/order/${id}/approve`).then(res => console.log(res.data));
+        setData((prev) => {
+            return prev.filter( item => item.id != id);
+        })
+    }
 
-    const rows = sortedData.map((row) => (
+    const handleDiscard = (id: string) => {
+        axiosPrivate.get(`/order/${id}discard`).then(res => console.log(res.data));
+    }
+
+    const rows = data.map((row, index) => (
     <tr key={row.id}>
-        <td>{row.title}</td>
-        <td>{row.ISBN}</td>
+        <td>{index + 1}</td>
+        <td>{row.title.map( item => <>{item}<br/></> )}</td>
+        <td>{row.ISBN.map( item => <>{item}<br/></> )}</td>
         <td>{row.amount}</td>
-        <td><Button leftIcon={<IconCheck/>} color="green">Approve</Button><Button leftIcon={<IconX/>} color="red">Discard</Button></td>
+        <td><Button leftIcon={<IconCheck/>} style={{marginRight:"4px"}} color="green" onClick={() => {handleApprove(row.id)}}>Approve</Button><Button leftIcon={<IconX/>} color="red">Discard</Button></td>
     </tr>
     ));
+
 return (
     <ScrollArea>
-        <TextInput
-            placeholder="Search by any field"
-            mb="md"
-            icon={<IconSearch size={14} stroke={1.5} />}
-            value={search}
-            onChange={handleSearchChange}
-        />
     <Table
         horizontalSpacing="md"
         verticalSpacing="xs"
         sx={{  minWidth: 700 }}
+        striped
     >
         <thead>
             <tr>
-                <Th
-                    sorted={sortBy == 'title'}
-                    reversed={reverseSortDirection}
-                    onSort={() => setSorting("title")}
-                >
-                    Title
-                </Th>
-                <Th
-                    sorted={sortBy == 'ISBN'}
-                    reversed={reverseSortDirection}
-                    onSort={() => setSorting("ISBN")}
-                >
-                    ISBN
-                </Th>
-                <Th
-                    sorted={sortBy == 'amount'}
-                    reversed={reverseSortDirection}
-                    onSort={() => setSorting("amount")}
-                >
-                    Amount
-                </Th>
-                <Th
-                    sorted={false}
-                    reversed={false}
-                    onSort={() => {}}
-                    w = '300px'
-                >
-                    Action
-                </Th>
+                <Th w='110px' > index </Th>
+                <Th> Title </Th>
+                <Th> ISBN </Th>
+                <Th> Amount </Th>
+                <Th w = '300px'> Action </Th>
             </tr>
         </thead>
         <tbody>

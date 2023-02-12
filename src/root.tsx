@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { App } from "./app";
+import { App } from "./App";
 import { AuthProvidder } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import { Cart } from "./pages/Cart/Cart";

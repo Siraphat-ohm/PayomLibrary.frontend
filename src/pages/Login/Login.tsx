@@ -47,7 +47,7 @@ const Login = ({admin = false}: LoginProps) => {
 
     return (
             isAuthenticated ? 
-                isAdmin ? <Navigate to="/sudo" replace={true}/> : <Navigate to="/main/home" replace={true}/> 
+                isAdmin ? <Navigate to="/sudo/books" replace={true}/> : <Navigate to="/main/home" replace={true}/> 
                             :  
                 <Container size={420} my={40}>
                     <Paper withBorder shadow="md" p={30} mt={30} radius="md">
@@ -105,7 +105,6 @@ const AdminLogin = () => {
                 Admin <IconKey/>
             </Title>
             <Login admin/>
-
         </div>
     )
 }
