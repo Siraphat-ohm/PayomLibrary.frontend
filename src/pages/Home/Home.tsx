@@ -5,7 +5,6 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate"
 import { Pagination, Skeleton } from "@mantine/core"
 
 export const Home = () => {
-
     const axiosPrivate = useAxiosPrivate();
     const [cards, setCard] = useState<JSX.Element[]>();
     const [activePage, setPage] = useState(1);
@@ -16,7 +15,7 @@ export const Home = () => {
     })
 
     useEffect(() => {
-        axiosPrivate.get(`/books/${activePage}`).then((res) => {
+        axiosPrivate.get(`/books/by/${activePage}`).then((res) => {
                 const el = res.data.map( (item:any)  => {
                     return <CardBook key={item.id}
                         data={

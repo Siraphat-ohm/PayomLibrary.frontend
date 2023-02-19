@@ -16,7 +16,7 @@ interface AuthContextType {
     setIsAdmin: (value: boolean) => void;
 }
 
-const AuthContext = createContext<AuthContextType>({
+export const AuthContext = createContext<AuthContextType>({
     isAuthenticated: false,
     setIsAuthenticated: () => {},
     logout: () => {},

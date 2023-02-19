@@ -1,8 +1,9 @@
-import { createStyles, Header, Autocomplete, Group, Burger, Text, Button, Drawer, Stack, Avatar } from '@mantine/core';
+import { createStyles, Header, Autocomplete, Group, Burger, Text, Button, Drawer, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconLogout, IconSearch } from '@tabler/icons';
-import { MantineLogo } from '@mantine/ds';
 import { useNavigate } from 'react-router-dom';
+import axios from '../config/baseAxios';
+import { useAuth } from '../context/AuthContext';
 
 const useStyles = createStyles((theme) => ({
     header: {
@@ -45,9 +46,40 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-export function HeaderSearch() {
+interface headerProps {
+    admin?: boolean
+}
+
+
+
+export function HeaderSearch({ admin = false }: headerProps ) {
+    const { logout, user } = useAuth();
+
+    const handleLogout = () => {
+        axios.get("/logout").then(res => {
+            logout();
+            navigate('/login', { replace: true })
+        })
+    }
     const navigate = useNavigate();
-    const links = [
+    const links = admin ? [
+        {
+            "link": "/sudo/books",
+            "label": "Home"
+        },
+        {
+            "link": "/sudo/request",
+            "label": "Request"
+        },
+        {
+            "link": "/sudo/receipt",
+            "label": "Receive"
+        },
+        {
+            "link": "/sudo/register-book",
+            "label": "Register"
+        }
+    ]:[
         {
             "link": "/main/home",
             "label": "Home"
@@ -101,8 +133,8 @@ export function HeaderSearch() {
                         {borderRadius: "100%"}
                     }
                 />
-                <Text>banana@gmail.com</Text>
-                <Button leftIcon={<IconLogout/>} color="red" size='xs'> logtout </Button>
+                <Text>{user.email}</Text>
+                <Button leftIcon={<IconLogout/>} onClick={handleLogout} color="red" size='xs'> logtout </Button>
             </Stack>
         </Drawer>
 

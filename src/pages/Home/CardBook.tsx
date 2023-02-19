@@ -1,11 +1,12 @@
 import { Card, Image, Text, Group, Badge, createStyles, Center, Button } from '@mantine/core';
 import { IconBallpen, IconPaperBag } from '@tabler/icons-react';
+import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 
 const useStyles = createStyles((theme) => ({
     card: {
         backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7]: theme.white,
-        width: "18%",
+        width: "300px",
         marginRight: "20px",
         marginBottom: "20px"
     },
@@ -63,7 +64,7 @@ interface CardBookProps {
 
 export function CardBook({ data } : CardBookProps) {
     const { addToCart } = useCart();
-
+    const navigate = useNavigate();
     
     const mockdata = [
         { label: data.author, icon: IconBallpen },
@@ -77,17 +78,21 @@ export function CardBook({ data } : CardBookProps) {
         <Text size="xs">{feature.label}</Text>
         </Center>
     ));
+
+    const handleView = (id: string) => {
+        return navigate(`/main/book/${id}`);
+    }
     
 
     return (
         <Card withBorder radius="md" className={classes.card}>
-            <Card.Section className={classes.imageSection}>
-                <Image src={data.img} alt="Tesla Model S" />
-            </Card.Section>
+            <div style={{ height: "300px", overflow:'hidden'}}>
+                <img src={data.img} width={258}/>
+            </div>
 
-            <Group position="apart" mt="md">
+            <Group position="left" mt="md">
                 <div>
-                <Text weight={500} >{data.title}</Text>
+                <Text weight={500}>{data.title.length > 33 ? data.title.slice(0, 30) + "..." : data.title }</Text>
                 <Text size="xs" color="dimmed">
                     ISBN: {data.ISBN}
                 </Text>
@@ -97,9 +102,8 @@ export function CardBook({ data } : CardBookProps) {
 
             <Card.Section className={classes.section} mt="md">
                 <Text size="sm" color="dimmed" className={classes.label}>
-                detail
+                    detail
                 </Text>
-
                 <Group spacing={8} mb={-8}>
                 {features}
                 </Group>
@@ -110,7 +114,7 @@ export function CardBook({ data } : CardBookProps) {
                 <Button radius="md" size="md" onClick={() => addToCart(data)}>
                     add to cart
                 </Button>
-                <Button radius="md" size="md" variant="outline" color="gray">
+                <Button radius="md" size="md" variant="outline" color="gray" onClick={() => handleView(data.id)}>
                     view
                 </Button>
                 </Group>

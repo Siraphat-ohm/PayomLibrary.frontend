@@ -1,14 +1,22 @@
+import { useEffect, useState } from 'react';
 import {
     createStyles,
     Table,
+    ScrollArea,
+    UnstyledButton,
     Group,
     Text,
     Center,
+    Button,
 } from '@mantine/core';
+import { useCart } from '../../context/CartContext';
+import { IconTrashX } from '@tabler/icons-react';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const useStyles = createStyles((theme) => ({
     th: {
         padding: '0 !important',
+        width: "300px"
     },
 
     control: {
@@ -27,23 +35,25 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-interface RowData {
+type RowData = {
+    id: string
     title: string,
-    category: string,
     ISBN: string,
-    amount: string,
-    status?: any
+    quantity: string,
+    category: string
 }
 
 
 interface ThProps {
-    children: React.ReactNode
-}
+    children: React.ReactNode;
+    w? : string | number
+}  
 
-function Th({ children }: ThProps) {
+function Th({ children, w }: ThProps) {
     const { classes } = useStyles();
     return (
-    <th className={classes.th}>
+    <th className={classes.th} style = {{ width : w }}>
+        <UnstyledButton className={classes.control}>
         <Group position="apart">
             <Text weight={500} size="sm">
             {children}
@@ -51,29 +61,35 @@ function Th({ children }: ThProps) {
             <Center className={classes.icon}>
             </Center>
         </Group>
+        </UnstyledButton>
     </th>
     );
 }
 
+export const Order = () => {
+    const { cartItems, removeFromCart, clearCart } = useCart();
+    const axiosPrivate = useAxiosPrivate();
 
-export function Order() {
-    const data:RowData[] = []
+    const [rows, setRows] = useState<JSX.Element[]>([])
 
-    const rows = data.map((row) => (
-    <tr key={row.title}>
-        <td>{row.title}</td>
-        <td>{row.category}</td>
-        <td>{row.ISBN}</td>
-        <td>{row.amount}</td>
-        <td>{row.status}</td>
-    </tr>
-    ));
+    useEffect(() => {
+        const items = cartItems.map(item => item)
+        const rows:JSX.Element[] = items.map((row) => {
+            return <tr key={row.id}>
+                        <td>{row.title}</td>
+                        <td>{row.category}</td>
+                        <td>{row.ISBN}</td>
+                        <td><IconTrashX onClick={() => removeFromCart(row.id)}></IconTrashX></td>
+                    </tr>});
+        setRows(rows)
+        }, [cartItems])
 
     return (
+    <ScrollArea>
     <Table
         horizontalSpacing="md"
         verticalSpacing="xs"
-        sx={{  minWidth: 700 }}
+        sx={{  minWidth: 30 }}
         highlightOnHover
         striped
         withBorder 
@@ -84,8 +100,8 @@ export function Order() {
                 <Th> Title </Th>
                 <Th> Category </Th>
                 <Th> ISBN </Th>
-                <Th> Amount </Th>
-                <Th> Status </Th>
+                <Th w = '100px'> quanity </Th>
+                <Th w = '30px'> action </Th>
             </tr>
         </thead>
         <tbody>
@@ -102,5 +118,6 @@ export function Order() {
             )}
         </tbody>
     </Table>
+    </ScrollArea>
     );
 }
