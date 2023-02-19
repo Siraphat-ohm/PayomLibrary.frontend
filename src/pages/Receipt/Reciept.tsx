@@ -9,9 +9,6 @@ import {
     Center,
     Button
 } from '@mantine/core';
-import { IconX } from '@tabler/icons';
-import React from 'react';
-import { IconCheck } from '@tabler/icons-react';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const useStyles = createStyles((theme) => ({
@@ -37,9 +34,9 @@ const useStyles = createStyles((theme) => ({
 
 interface RowData {
     id: string,
-    title: string[],
-    ISBN: string[],
-    amount: string,
+    title:string[],
+    loanDate: string,
+    expectDate: string,
     user: string
 }
 
@@ -65,55 +62,32 @@ function Th({ children, w }: ThProps) {
     );
 }
 
-export const RequestOrder = () => {
+export const Reciept = () => {
     const axiosPrivate = useAxiosPrivate();
     const [data, setData] = useState<RowData[]>([]);
 
     useEffect( () => {
-        axiosPrivate.get('/order/all').then(res => setData(res.data));
+        axiosPrivate.get('/receipt/all').then(res => setData(res.data));
     }, [])
 
-    const handleApprove = (id: string) => {
-        axiosPrivate.get(`/order/${id}/approve`).then(res => {
-            setData((prev) => {
-                return prev.filter( item => item.id != id);
-            })
-        })
-    }
-
-    const handleDiscard = (id: string) => {
-        axiosPrivate.get(`/order/${id}/discard`).then(res => {
-            console.log(res.data);
-        });
+    const handleReciept = (id: string) => {
+        axiosPrivate.get(`/receipt/${id}/receive`).then(res => console.log(res.data));
     }
 
     const rows = data.map((row, index) => {
-        console.log(row);
+        console.log(row.id);
         return (
             <tr key={row.id}>
                 <td>{index + 1}</td>
-                <td>{row.title.map( item => <>{item}<br/></> )}</td>
-                <td>{row.ISBN.map( item => <>{item}<br/></> )}</td>
-                <td>{row.amount}</td>
+                <td>{row.title.map( item => <>{item}<br/></>)}</td>
+                <td>{row.loanDate}</td>
+                <td>{row.expectDate}</td>
                 <td>{row.user}</td>
-                <td>
-                    <Button 
-                        leftIcon={<IconCheck/>} 
-                        style={{marginRight:"4px"}} 
-                        color="green" 
-                        onClick={() => {handleApprove(row.id)}}>
-                            Approve
-                    </Button>
-                    <Button 
-                        leftIcon={<IconX/>} 
-                        onClick={() => handleDiscard(row.id)} 
-                        color="red">
-                            Discard
-                    </Button>
-                </td>
+                <td><Button color="green" onClick={() => {handleReciept(row.id)}}>receipt</Button></td>
             </tr>
         )
     });
+
 
 return (
     <ScrollArea>
@@ -128,12 +102,12 @@ return (
     >
         <thead>
             <tr>
-                <Th w='110px' > index </Th>
+                <Th w='111px' > index </Th>
                 <Th> Title </Th>
-                <Th> ISBN </Th>
-                <Th> Amount </Th>
+                <Th> LoanDate </Th>
+                <Th> ExpectDate </Th>
                 <Th> User </Th>
-                <Th w = '300px'> Action </Th>
+                <Th> Action </Th>
             </tr>
         </thead>
         <tbody>

@@ -95,8 +95,7 @@ function sortData( data: RowData[], payload: { sortBy: keyof RowData | null; rev
 }
 
 export function Order() {
-    const data:RowData[] = [
-    ]
+    const data:RowData[] = []
     const [search, setSearch] = useState('');
     const [sortedData, setSortedData] = useState(data);
     const [sortBy, setSortBy] = useState<keyof RowData | null>(null);
@@ -138,6 +137,10 @@ export function Order() {
         horizontalSpacing="md"
         verticalSpacing="xs"
         sx={{  minWidth: 700 }}
+        highlightOnHover
+        striped
+        withBorder 
+        withColumnBorders
     >
         <thead>
             <tr>
@@ -183,7 +186,7 @@ export function Order() {
                 rows
                 ) : (
                 <tr>
-                    <td colSpan={4}>
+                    <td colSpan={5}>
                     <Text weight={500} align="center">
                         Nothing found
                     </Text>

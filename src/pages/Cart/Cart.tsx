@@ -71,7 +71,6 @@ export const Cart = () => {
     const { cartItems, removeFromCart, clearCart } = useCart();
     const axiosPrivate = useAxiosPrivate();
 
-    const [data, setData] = useState<RowData[]>([])
     const [rows, setRows] = useState<JSX.Element[]>([])
 
     useEffect(() => {
@@ -100,6 +99,7 @@ export const Cart = () => {
         verticalSpacing="xs"
         sx={{  minWidth: 30 }}
         highlightOnHover
+        striped
         withBorder 
         withColumnBorders
     >
