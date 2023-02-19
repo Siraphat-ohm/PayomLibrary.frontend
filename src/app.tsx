@@ -1,8 +1,7 @@
-import { AppShell } from '@mantine/core';
+import { AppShell, Pagination } from '@mantine/core';
 import { Navigate, Outlet } from 'react-router-dom';
 import './App.css';
-import { Navbars } from './components/Navbars';
-import { NavbarsAdmin } from './components/NavbarsAdmin';
+import { HeaderSearch } from './components/Header';
 import { useAuth } from './context/AuthContext';
 
 interface AppProps  {
@@ -16,7 +15,7 @@ export const App = ( {admin = false} : AppProps ) => {
         (isAuthenticated) ? 
         <AppShell 
             padding="md"
-            navbar={admin ? <NavbarsAdmin/> : <Navbars/>}
+            header= {<HeaderSearch />}
         >
                 <Outlet/>
             </AppShell>  

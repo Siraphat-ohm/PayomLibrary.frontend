@@ -70,7 +70,10 @@ export const RequestOrder = () => {
     const [data, setData] = useState<RowData[]>([]);
 
     useEffect( () => {
-        axiosPrivate.get('/order/all').then(res => setData(res.data));
+        const interval = setInterval(() => {
+            axiosPrivate.get('/order/all').then(res => setData(res.data));
+        }, 1000)
+        return () => clearInterval(interval);
     }, [])
 
     const handleApprove = (id: string) => {

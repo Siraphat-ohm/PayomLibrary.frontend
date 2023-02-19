@@ -5,7 +5,7 @@ import { Root } from './root';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <MantineProvider withGlobalStyles withNormalizeCSS theme={
-          { colorScheme: "dark", fontFamily: "Space Mono", respectReducedMotion: false } }>
+          { colorScheme: "dark" } }>
               <BrowserRouter>
                 <Root/>
               </BrowserRouter>

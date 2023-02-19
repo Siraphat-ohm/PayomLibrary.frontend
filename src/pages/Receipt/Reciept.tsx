@@ -67,7 +67,10 @@ export const Reciept = () => {
     const [data, setData] = useState<RowData[]>([]);
 
     useEffect( () => {
-        axiosPrivate.get('/receipt/all').then(res => setData(res.data));
+        const interval = setInterval(() => {
+            axiosPrivate.get('/receipt/all').then(res => setData(res.data));
+        }, 1000);
+        return () => clearInterval(interval);
     }, [])
 
     const handleReciept = (id: string) => {
