@@ -1,5 +1,6 @@
-import { Card, Image, Text, Group, Badge, createStyles, Center, Button } from '@mantine/core';
-import { IconBallpen, IconPaperBag } from '@tabler/icons-react';
+import { Card, Image, Text, Group, Badge, createStyles, Center, Button, Modal } from '@mantine/core';
+import { IconBallpen, IconPaperBag, IconX } from '@tabler/icons-react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 
@@ -51,43 +52,45 @@ const useStyles = createStyles((theme) => ({
 interface book {
     id: string,
     title: string,
+    description: string,
+    authors: string[],
+    categories: string[],
+    language: string[],
     ISBN: string,
-    quantity: string,
-    category: string,
-    img: string,
-    author: string
+    pubYear: number,
+    page: number,
+    copies: number,
+    thumbnail: string
 }
 
 interface CardBookProps {
-    data: book
+    data: book,
 }
 
 export function CardBook({ data } : CardBookProps) {
+    
     const { addToCart } = useCart();
     const navigate = useNavigate();
-    
+    const [opened, setOpen] = useState(false);
+
     const mockdata = [
-        { label: data.author, icon: IconBallpen },
-        { label: data.quantity, icon: IconPaperBag },
+        { label: data.authors, icon: IconBallpen },
+        { label: data.copies, icon: IconPaperBag },
     ];
 
     const { classes } = useStyles();
-    const features = mockdata.map((feature) => (
-        <Center key={feature.label}>
+    const features = mockdata.map((feature, index) => (
+        <Center key={index}>
         <feature.icon size={18} className={classes.icon} stroke={1.5} />
         <Text size="xs">{feature.label}</Text>
         </Center>
     ));
 
-    const handleView = (id: string) => {
-        return navigate(`/main/book/${id}`);
-    }
-    
-
     return (
-        <Card withBorder radius="md" className={classes.card}>
+        <>
+        <Card withBorder radius="md" className={classes.card} onClick={() => setOpen(true)}>
             <div style={{ height: "300px", overflow:'hidden'}}>
-                <img src={data.img} width={258}/>
+                <img src={data.thumbnail} width={258}/>
             </div>
 
             <Group position="left" mt="md">
@@ -96,7 +99,7 @@ export function CardBook({ data } : CardBookProps) {
                 <Text size="xs" color="dimmed">
                     ISBN: {data.ISBN}
                 </Text>
-                <Badge variant="outline">{data.category}</Badge>
+                <Badge variant="outline">{data.categories}</Badge>
                 </div>
             </Group>
 
@@ -111,14 +114,38 @@ export function CardBook({ data } : CardBookProps) {
 
             <Card.Section className={classes.section}>
                 <Group spacing={30}>
-                <Button radius="md" size="md" onClick={() => addToCart(data)}>
+                <Button radius="md" size="md" onClick={() => addToCart({ id: data.id, title: data.title, ISBN: data.ISBN, quantity: 1, category: "t" })}>
                     add to cart
                 </Button>
-                <Button radius="md" size="md" variant="outline" color="gray" onClick={() => handleView(data.id)}>
+                <Button radius="md" size="md" variant="outline" color="gray" >
                     view
                 </Button>
                 </Group>
             </Card.Section>
         </Card>
+        <Modal 
+            opened={opened}
+            onClose={() => setOpen(false)}
+            size="xl"
+        >
+        <div className="overlay">
+            <div className="overlay-inner">
+                <div className="inner-box">
+                    <img src={data?.thumbnail}/>
+                    <div className="info">
+                        <h1>{data.title}</h1>
+                        <p>ISBN: {data.ISBN}</p>
+                        <p>category: {data.categories}</p>
+                        <p>language: {data.language}</p>
+                        <p>publication year: {data.pubYear}</p>
+                        <p>page: {data.page}</p>
+                        <p>amount: {data.copies}</p>
+                    </div>
+                </div>
+                <h4 className='description'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, aliquid neque. Eligendi quos atque, natus ratione velit voluptatum sequi rem facilis dolores sint quod quisquam veniam modi assumenda officia odit non quasi, odio laborum inventore vitae repellendus. Repudiandae, hic dicta?</h4>
+            </div>
+        </div>
+        </Modal>
+        </>
     );
 }

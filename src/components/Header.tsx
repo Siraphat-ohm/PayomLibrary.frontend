@@ -4,6 +4,7 @@ import { IconLogout, IconSearch } from '@tabler/icons';
 import { useNavigate } from 'react-router-dom';
 import axios from '../config/baseAxios';
 import { useAuth } from '../context/AuthContext';
+import ron from "../assets/ron.png"
 
 const useStyles = createStyles((theme) => ({
     header: {
@@ -64,10 +65,6 @@ export function HeaderSearch({ admin = false }: headerProps ) {
     const navigate = useNavigate();
     const links = admin ? [
         {
-            "link": "/sudo/books",
-            "label": "Home"
-        },
-        {
             "link": "/sudo/request",
             "label": "Request"
         },
@@ -96,9 +93,9 @@ export function HeaderSearch({ admin = false }: headerProps ) {
     const [opened,  toggle ] = useDisclosure(false);
     const { classes } = useStyles();
 
-    const items = links.map((link) => {
+    const items = links.map((link, index) => {
         return (
-            <Text
+            <Text key={index}
                 color="dimmed"
                 variant='link'
                 onClick={() => {
@@ -126,15 +123,15 @@ export function HeaderSearch({ admin = false }: headerProps ) {
             >
             <Stack align={'center'}>
                 <img
-                    src='https://i.pinimg.com/originals/4b/8c/18/4b8c18677544c7d616c05dde8ede198b.jpg'
+                    src={ron}
                     alt='Avatar'
                     width={256}
                     style={
                         {borderRadius: "100%"}
                     }
                 />
-                <Text>{user.email}</Text>
-                <Button leftIcon={<IconLogout/>} onClick={handleLogout} color="red" size='xs'> logtout </Button>
+                <Text>banana@gmail.com</Text>
+                <Button leftIcon={<IconLogout/>} onClick={handleLogout} color="red" size='xs'> logout </Button>
             </Stack>
         </Drawer>
 

@@ -5,11 +5,11 @@ type CartProviderProps = {
     children: ReactNode
 }
 
-export type CartItem = {
+export interface CartItem {
     id: string
     title: string,
     ISBN: string,
-    quantity: string,
+    quantity: 1,
     category: string
 }
 

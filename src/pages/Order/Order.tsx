@@ -37,10 +37,10 @@ const useStyles = createStyles((theme) => ({
 
 type RowData = {
     id: string
-    title: string,
-    ISBN: string,
-    quantity: string,
-    category: string
+    title: string[],
+    ISBN: string[],
+    category: string[],
+    status: boolean
 }
 
 
@@ -67,22 +67,27 @@ function Th({ children, w }: ThProps) {
 }
 
 export const Order = () => {
-    const { cartItems, removeFromCart, clearCart } = useCart();
     const axiosPrivate = useAxiosPrivate();
-
-    const [rows, setRows] = useState<JSX.Element[]>([])
+    const [data, setData] = useState<RowData[]>([])
 
     useEffect(() => {
-        const items = cartItems.map(item => item)
-        const rows:JSX.Element[] = items.map((row) => {
-            return <tr key={row.id}>
-                        <td>{row.title}</td>
-                        <td>{row.category}</td>
-                        <td>{row.ISBN}</td>
-                        <td><IconTrashX onClick={() => removeFromCart(row.id)}></IconTrashX></td>
-                    </tr>});
-        setRows(rows)
-        }, [cartItems])
+        const interval = setInterval(() => {
+            axiosPrivate.get("/order/list").then( res => setData(res.data))
+        }, 1000)
+        return () => clearInterval(interval);
+    }, [])
+
+    const rows = data?.map((row, index) => {
+        return (
+            <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{row.title.map( item => <div key={Math.random()}>{item}<br/></div> )}</td>
+                <td>{row.category.map( item => <div key={Math.random()}>{item}<br/></div>)}</td>
+                <td>{row.ISBN.map( item => <div key={Math.random()}>{item}<br/></div> )}</td>
+                <td><Button color={ !row.status ? "gray" : "green"} >{ !row.status ? "wait" : "approve"}</Button></td>
+            </tr>
+        )
+    });
 
     return (
     <ScrollArea>
@@ -97,11 +102,11 @@ export const Order = () => {
     >
         <thead>
             <tr>
+                <Th w = '10px'> Index </Th>
                 <Th> Title </Th>
                 <Th> Category </Th>
                 <Th> ISBN </Th>
-                <Th w = '100px'> quanity </Th>
-                <Th w = '30px'> action </Th>
+                <Th w = '80px'> status </Th>
             </tr>
         </thead>
         <tbody>

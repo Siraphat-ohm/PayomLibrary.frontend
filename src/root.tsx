@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import { App } from "./App";
 import { AuthProvidder } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
-import { BookDetail } from "./pages/BookDetail/BookDetail";
 import { Cart } from "./pages/Cart/Cart";
 import { Home } from "./pages/Home/Home";
 import { AdminLogin, UserLogin } from "./pages/Login/Login";
@@ -20,13 +19,9 @@ export function Root() {
                         <Route path='home' element={<Home/>}/>
                         <Route path='orders' element={<Order/>}/>
                         <Route path='cart' element={<Cart/>}/>
-                        <Route path='book'>
-                            <Route path=':id' element={<BookDetail/>}/>
-                        </Route>
                     </Route>
                     <Route path='sudo-login' element={<AdminLogin/>} />
                     <Route path='sudo' element={<App admin/>}>
-                        <Route path="books" element={<h1>this is book store.</h1>}/>
                         <Route path="request" element={<RequestOrder/>}/>
                         <Route path="receipt" element={<Reciept/>}/>
                         <Route path="register-book" element={<h1>this is register page.</h1>}/>

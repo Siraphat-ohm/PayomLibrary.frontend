@@ -15,7 +15,7 @@ export const App = ( {admin = false} : AppProps ) => {
         (isAuthenticated) ? 
         <AppShell 
             padding="md"
-            header= { admin? <HeaderSearch admin/> : <HeaderSearch />}
+            header= { admin ? <HeaderSearch admin/> : <HeaderSearch />}
         >
                 <Outlet/>
             </AppShell>  
