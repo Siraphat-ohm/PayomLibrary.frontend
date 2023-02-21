@@ -30,7 +30,6 @@ export const Home = () => {
     useEffect(() => {
         axiosPrivate.get(`/books/by/${activePage}`).then((res) => {
                 const el = res.data.map( (item:any)  => {
-                    console.log(item);
                     return (
                             <CardBook
                                 data={item}

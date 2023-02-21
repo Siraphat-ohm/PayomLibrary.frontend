@@ -8,6 +8,7 @@ import {
     Text,
     Center,
     Button,
+    Modal,
 } from '@mantine/core';
 import { ButtonQuantity } from './ButtonQuantity';
 import { useCart } from '../../context/CartContext';
@@ -71,7 +72,8 @@ export const Cart = () => {
     const { cartItems, removeFromCart, clearCart } = useCart();
     const axiosPrivate = useAxiosPrivate();
 
-    const [rows, setRows] = useState<JSX.Element[]>([])
+    const [rows, setRows] = useState<JSX.Element[]>([]);
+    const [opened, setOpen] = useState(false);
 
     useEffect(() => {
         const items = cartItems.map(item => item)
@@ -80,7 +82,7 @@ export const Cart = () => {
                         <td>{row.title}</td>
                         <td>{row.category}</td>
                         <td>{row.ISBN}</td>
-                        <td><ButtonQuantity id={row.id} valueItem={Number(row.quantity)}/></td>
+                        <td>{row.quantity}</td>
                         <td><IconTrashX onClick={() => removeFromCart(row.id)}></IconTrashX></td>
                     </tr>});
         setRows(rows)
@@ -126,7 +128,18 @@ export const Cart = () => {
             )}
         </tbody>
     </Table>
-    <Button onClick={handleRent} style={{marginTop:"20px"}}>rent now</Button>
+    <Modal
+        opened={opened} 
+        onClose={() => setOpen(false)}
+        withCloseButton
+        title="confirm order"
+        size="20%"
+        centered
+    >
+        <Button color="cyan" style={{ "marginRight": "100px" }} onClick={() => handleRent}>Ok</Button>
+        <Button color="red" onClick={() => setOpen(false)}>Cancel</Button>
+    </Modal>
+    <Button onClick={() => setOpen(true)}  style={{marginTop:"20px"}}>rent now</Button>
     </ScrollArea>
     );
 }

@@ -88,7 +88,7 @@ export function CardBook({ data } : CardBookProps) {
 
     return (
         <>
-        <Card withBorder radius="md" className={classes.card} onClick={() => setOpen(true)}>
+        <Card withBorder radius="md" className={classes.card} >
             <div style={{ height: "300px", overflow:'hidden'}}>
                 <img src={data.thumbnail} width={258}/>
             </div>
@@ -114,10 +114,10 @@ export function CardBook({ data } : CardBookProps) {
 
             <Card.Section className={classes.section}>
                 <Group spacing={30}>
-                <Button radius="md" size="md" onClick={() => addToCart({ id: data.id, title: data.title, ISBN: data.ISBN, quantity: 1, category: "t" })}>
+                <Button radius="md" size="md" disabled={data.copies <= 0 ? true : false} onClick={() => addToCart({ id: data.id, title: data.title, ISBN: data.ISBN, quantity: 1, category: "t" })}>
                     add to cart
                 </Button>
-                <Button radius="md" size="md" variant="outline" color="gray" >
+                <Button radius="md" size="md" variant="outline" color="gray" onClick={() => setOpen(true)} >
                     view
                 </Button>
                 </Group>

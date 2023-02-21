@@ -130,7 +130,7 @@ export function HeaderSearch({ admin = false }: headerProps ) {
                         {borderRadius: "100%"}
                     }
                 />
-                <Text>banana@gmail.com</Text>
+                <Text>{user.email}</Text>
                 <Button leftIcon={<IconLogout/>} onClick={handleLogout} color="red" size='xs'> logout </Button>
             </Stack>
         </Drawer>

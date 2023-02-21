@@ -31,14 +31,14 @@ export const useAuth = () => {
 
 export const AuthProvidder = ({children}:children ) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [user, setUser] = useState(({} as User));
+    const [user, setUser] = useState({} as User);
     const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
         axios.get('/auth')
             .then(res => {
                 setIsAuthenticated(res.data.Authenticated);
-                setUser(res.data);
+                setUser(res.data.user);
                 setIsAdmin(res.data.isAdmin);
             })
             .catch(err => {
@@ -46,6 +46,9 @@ export const AuthProvidder = ({children}:children ) => {
             })
 
     }, [])
+
+    console.log(user.email);
+    
 
     const logout = () => {
         setIsAuthenticated(false)
