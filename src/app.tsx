@@ -1,4 +1,4 @@
-import { AppShell, Pagination } from '@mantine/core';
+import { AppShell } from '@mantine/core';
 import { Navigate, Outlet } from 'react-router-dom';
 import './App.css';
 import { HeaderSearch } from './components/Header';

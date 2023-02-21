@@ -54,7 +54,7 @@ interface headerProps {
 
 
 export function HeaderSearch({ admin = false }: headerProps ) {
-    const { logout, user } = useAuth();
+    const { logout, user, isAdmin } = useAuth();
 
     const handleLogout = () => {
         axios.get("/logout").then(res => {
@@ -117,7 +117,7 @@ export function HeaderSearch({ admin = false }: headerProps ) {
         <Drawer
             opened={opened}
             onClose={toggle.close}
-            title="UserInfo"
+            title={ isAdmin ? "AdminInfo" : "UserInfo"}
             padding="xl"
             size="md"
             >

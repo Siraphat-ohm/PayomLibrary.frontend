@@ -46,8 +46,6 @@ export const AuthProvidder = ({children}:children ) => {
             })
 
     }, [])
-
-    console.log(user.email);
     
 
     const logout = () => {

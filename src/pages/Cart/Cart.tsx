@@ -10,7 +10,6 @@ import {
     Button,
     Modal,
 } from '@mantine/core';
-import { ButtonQuantity } from './ButtonQuantity';
 import { useCart } from '../../context/CartContext';
 import { IconTrashX } from '@tabler/icons-react';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
@@ -128,18 +127,7 @@ export const Cart = () => {
             )}
         </tbody>
     </Table>
-    <Modal
-        opened={opened} 
-        onClose={() => setOpen(false)}
-        withCloseButton
-        title="confirm order"
-        size="20%"
-        centered
-    >
-        <Button color="cyan" style={{ "marginRight": "100px" }} onClick={() => handleRent}>Ok</Button>
-        <Button color="red" onClick={() => setOpen(false)}>Cancel</Button>
-    </Modal>
-    <Button onClick={() => setOpen(true)}  style={{marginTop:"20px"}}>rent now</Button>
+    <Button onClick={() => handleRent()}  style={{marginTop:"20px"}}>rent now</Button>
     </ScrollArea>
     );
 }
